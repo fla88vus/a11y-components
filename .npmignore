@@ -1,0 +1,27 @@
+# Source files
+src/
+*.test.tsx
+*.test.ts
+
+# Config files
+vite.config.ts
+vitest.config.ts
+tsconfig.json
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+
+# Testing
+coverage/
+
+# Build artifacts (keep dist!)
+node_modules/
+
+# Misc
+.DS_Store
+*.log
