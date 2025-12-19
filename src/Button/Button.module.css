@@ -21,9 +21,12 @@
   outline-offset: 2px;
 }
 
-.button:disabled {
+/* Disabled state using aria-disabled instead of :disabled */
+.button[aria-disabled="true"],
+.disabled {
   cursor: not-allowed;
   opacity: 0.6;
+  pointer-events: none;
 }
 
 /* Variants */
@@ -32,11 +35,11 @@
   color: #ffffff;
 }
 
-.primary:hover:not(:disabled) {
+.primary:hover:not([aria-disabled="true"]):not(.disabled) {
   background-color: #2563eb;
 }
 
-.primary:active:not(:disabled) {
+.primary:active:not([aria-disabled="true"]):not(.disabled) {
   background-color: #1d4ed8;
 }
 
@@ -45,11 +48,11 @@
   color: #ffffff;
 }
 
-.secondary:hover:not(:disabled) {
+.secondary:hover:not([aria-disabled="true"]):not(.disabled) {
   background-color: #475569;
 }
 
-.secondary:active:not(:disabled) {
+.secondary:active:not([aria-disabled="true"]):not(.disabled) {
   background-color: #334155;
 }
 
@@ -58,11 +61,11 @@
   color: #ffffff;
 }
 
-.danger:hover:not(:disabled) {
+.danger:hover:not([aria-disabled="true"]):not(.disabled) {
   background-color: #dc2626;
 }
 
-.danger:active:not(:disabled) {
+.danger:active:not([aria-disabled="true"]):not(.disabled) {
   background-color: #b91c1c;
 }
 

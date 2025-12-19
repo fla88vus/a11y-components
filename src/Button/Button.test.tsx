@@ -25,14 +25,16 @@ describe("Button", () => {
 
     const button = screen.getByRole("button");
     expect(button).toHaveAttribute("aria-busy", "true");
-    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute("aria-disabled", "true");
     expect(screen.getByRole("status")).toBeInTheDocument();
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
   it("is disabled when disabled prop is true", () => {
     render(<Button disabled>Submit</Button>);
-    expect(screen.getByRole("button")).toBeDisabled();
+    const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("aria-disabled", "true");
+    expect(button).not.toBeDisabled(); // No native disabled attribute
   });
 
   it("does not call onClick when disabled", async () => {
@@ -144,14 +146,14 @@ describe("Button", () => {
 
       const button = screen.getByRole("button");
 
-      // Bottone disabilitato non è focusabile (gestito da browser con disabled)
-      expect(button).toBeDisabled();
+      // Con aria-disabled, il bottone RIMANE focusabile (non usa disabled nativo)
+      expect(button).toHaveAttribute("aria-disabled", "true");
+      expect(button).not.toBeDisabled();
 
-      // Tenta di dare focus
+      // Il bottone può ricevere focus
       button.focus();
-      expect(button).not.toHaveFocus();
+      expect(button).toHaveFocus();
     });
-
     it("provides accessible name from children", () => {
       render(<Button>Save changes</Button>);
 
@@ -182,7 +184,7 @@ describe("Button", () => {
 
       // Non deve essere chiamato
       expect(handleClick).not.toHaveBeenCalled();
-      expect(button).toBeDisabled();
+      expect(button).toHaveAttribute("aria-disabled", "true");
     });
 
     it("hides decorative spinner from screen readers", () => {
@@ -200,11 +202,51 @@ describe("Button", () => {
       render(<Button disabled>Submit</Button>);
 
       const button = screen.getByRole("button");
-      expect(button).toBeDisabled();
+      expect(button).toHaveAttribute("aria-disabled", "true");
+      expect(button).not.toBeDisabled(); // No native disabled
 
-      // Button HTML nativo con disabled non è accessibile via tastiera
+      // Button con aria-disabled rimane accessibile via tastiera
       button.focus();
-      expect(button).not.toHaveFocus();
+      expect(button).toHaveFocus();
+    });
+
+    it("remains focusable but prevents clicks when aria-disabled", async () => {
+      const handleClick = vi.fn();
+      render(
+        <Button disabled onClick={handleClick}>
+          Submit
+        </Button>
+      );
+
+      const button = screen.getByRole("button");
+
+      // Può ricevere focus
+      button.focus();
+      expect(button).toHaveFocus();
+
+      // Ma il click non viene eseguito
+      await userEvent.click(button);
+      expect(handleClick).not.toHaveBeenCalled();
+    });
+
+    it("prevents keyboard activation when aria-disabled", async () => {
+      const handleClick = vi.fn();
+      render(
+        <Button disabled onClick={handleClick}>
+          Submit
+        </Button>
+      );
+
+      const button = screen.getByRole("button");
+      button.focus();
+
+      // Prova Enter
+      await userEvent.keyboard("{Enter}");
+      expect(handleClick).not.toHaveBeenCalled();
+
+      // Prova Space
+      await userEvent.keyboard(" ");
+      expect(handleClick).not.toHaveBeenCalled();
     });
   });
 });

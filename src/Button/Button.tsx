@@ -43,11 +43,28 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       fullWidth = false,
       className,
       type = "button",
+      onClick,
       ...props
     },
     ref
   ) => {
     const isDisabled = disabled || loading;
+
+    // Handle click with disabled check (prevents action but keeps focusable)
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (isDisabled) {
+        event.preventDefault();
+        return;
+      }
+      onClick?.(event);
+    };
+
+    // Handle keyboard events to prevent action when disabled
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (isDisabled && (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+      }
+    };
 
     const classNames = [
       styles.button,
@@ -55,6 +72,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       styles[size],
       loading && styles.loading,
       fullWidth && styles.fullWidth,
+      isDisabled && styles.disabled,
       className,
     ]
       .filter(Boolean)
@@ -65,8 +83,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
         className={classNames}
-        disabled={isDisabled}
+        aria-disabled={isDisabled}
         aria-busy={loading || undefined}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
         {...props}
       >
         {loading && (
