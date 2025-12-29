@@ -17,14 +17,14 @@ Production-ready accessible React components following **WCAG 2.1 AA standards**
 ## Installation
 
 ```bash
-npm install accessible-react-components
+npm install @flavia-dev/a11y-ui-kit-react
 ```
 
 ## Usage
 
 ```tsx
-import { Button } from 'accessible-react-components';
-import 'accessible-react-components/styles.css';
+import { Button } from '@flavia-dev/a11y-ui-kit-react';
+import '@flavia-dev/a11y-ui-kit-react/styles.css';
 
 function App() {
   return (
