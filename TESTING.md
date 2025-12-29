@@ -5,7 +5,7 @@ Comprehensive testing strategy for the a11y-components library.
 
 ## 📋 Test Types
 
-This library implements 4 types of tests following industry best practices:
+This library implements 5 types of tests following industry best practices:
 
 ```
 ┌─────────────────────────────────────────┐
@@ -13,6 +13,7 @@ This library implements 4 types of tests following industry best practices:
 │  2. Component Tests    (Rendering)      │
 │  3. Accessibility Tests (WCAG)          │
 │  4. Visual Regression  (Screenshots)    │
+│  5. Color Contrast    (WCAG Colors)     │
 └─────────────────────────────────────────┘
 ```
 
@@ -193,6 +194,50 @@ npm run test:coverage
 - Branches: > 75%
 - Functions: > 80%
 - Lines: > 80%
+
+---
+
+## 🎨 Color Contrast Tests (WCAG AA/AAA)
+
+Automated testing of color contrast ratios to ensure WCAG compliance.
+
+**What it tests:**
+- Text on background contrast (4.5:1 minimum for AA)
+- Interactive element contrast (3:1 minimum)
+- Focus indicator visibility
+- Error state color differentiation
+
+**Example:**
+```typescript
+// src/test/color-contrast.test.ts
+describe("Color Contrast Tests", () => {
+  it("text meets WCAG AA contrast ratio", () => {
+    const ratio = getContrastRatio("#1f2937", "#ffffff");
+    expect(ratio).toBeGreaterThanOrEqual(4.5); // WCAG AA
+  });
+});
+```
+
+**Features:**
+- Automated contrast ratio calculation
+- WCAG AA (4.5:1) and AAA (7:1) validation
+- Real color values from component CSS
+- Comprehensive reporting with pass/fail status
+
+**Run:**
+```bash
+npm run test:contrast
+```
+
+**Results example:**
+```
+┌─────────┬───────────────────────────────┬─────────┬───────────┬───────────┐
+│ (index) │ name                          │ ratio   │ wcagAA    │ wcagAAA   │
+├─────────┼───────────────────────────────┼─────────┼───────────┼───────────┤
+│ 0       │ 'Primary Text / White BG'     │ '14.68' │ '✅ PASS' │ '✅ PASS' │
+│ 1       │ 'Error Text / White BG'       │ '4.83'  │ '✅ PASS' │ '❌ FAIL' │
+└─────────┴───────────────────────────────┴─────────┴───────────┴───────────┘
+```
 
 ---
 

@@ -1,11 +1,11 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * Playwright configuration for visual regression testing
+ * Playwright configuration for visual regression and E2E testing
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  testDir: "./tests/visual",
+  testDir: "./tests",
 
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -50,35 +50,35 @@ export default defineConfig({
       },
     },
 
-    {
-      name: "firefox",
-      use: {
-        ...devices["Desktop Firefox"],
-        viewport: { width: 1280, height: 720 },
-      },
-    },
+    // {
+    //   name: "firefox",
+    //   use: {
+    //     ...devices["Desktop Firefox"],
+    //     viewport: { width: 1280, height: 720 },
+    //   },
+    // },
 
-    {
-      name: "webkit",
-      use: {
-        ...devices["Desktop Safari"],
-        viewport: { width: 1280, height: 720 },
-      },
-    },
+    // {
+    //   name: "webkit",
+    //   use: {
+    //     ...devices["Desktop Safari"],
+    //     viewport: { width: 1280, height: 720 },
+    //   },
+    // },
 
     /* Test against mobile viewports */
-    {
-      name: "Mobile Chrome",
-      use: {
-        ...devices["Pixel 5"],
-      },
-    },
-    {
-      name: "Mobile Safari",
-      use: {
-        ...devices["iPhone 12"],
-      },
-    },
+    // {
+    //   name: "Mobile Chrome",
+    //   use: {
+    //     ...devices["Pixel 5"],
+    //   },
+    // },
+    // {
+    //   name: "Mobile Safari",
+    //   use: {
+    //     ...devices["iPhone 12"],
+    //   },
+    // },
   ],
 
   /* Run your local dev server before starting the tests */

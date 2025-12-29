@@ -27,7 +27,11 @@
     "forceConsistentCasingInFileNames": true,
     
     /* CSS Modules */
-    "types": ["vite/client"]
+    "types": [
+      "vite/client",
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ]
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
