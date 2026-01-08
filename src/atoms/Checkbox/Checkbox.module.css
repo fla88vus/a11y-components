@@ -1,0 +1,136 @@
+/* Wrapper */
+.checkboxWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Input + Label inline */
+.inputGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Checkbox base */
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  border: 2px solid #6b7280;
+  border-radius: 0.25rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+/* WCAG 2.1 SC 2.4.7: Focus Visible */
+.checkbox:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Checked state */
+.checkbox:checked {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+/* Checkmark icon */
+.checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.05rem;
+  width: 0.35rem;
+  height: 0.7rem;
+  border: solid #ffffff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+
+/* Hover state */
+.checkbox:not(:disabled):hover {
+  border-color: #3b82f6;
+}
+
+/* Disabled state */
+.checkbox:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: #f3f4f6;
+}
+
+/* Error state - WCAG 2.1 SC 1.4.1: Use of Color */
+.checkbox.error {
+  border-color: #ef4444;
+  border-width: 2.5px;
+}
+
+/* Size variants */
+.checkbox.small {
+  width: 1rem;
+  height: 1rem;
+}
+
+.checkbox.small:checked::after {
+  left: 0.25rem;
+  top: 0.03rem;
+  width: 0.25rem;
+  height: 0.5rem;
+  border-width: 0 2px 2px 0;
+}
+
+.checkbox.large {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.checkbox.large:checked::after {
+  left: 0.4rem;
+  top: 0.08rem;
+  width: 0.45rem;
+  height: 0.85rem;
+  border-width: 0 3px 3px 0;
+}
+
+/* Label */
+.label {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #374151;
+  cursor: pointer;
+  user-select: none;
+}
+
+.label.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Required indicator */
+.requiredIndicator {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Helper text */
+.helperText {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #6b7280;
+  margin-left: 1.75rem;
+}
+
+/* Error text - WCAG 2.1 SC 1.4.3: Contrast (Minimum) */
+.errorText {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #dc2626;
+  margin-left: 1.75rem;
+  font-weight: 500;
+}
