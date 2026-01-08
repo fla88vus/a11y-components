@@ -333,7 +333,6 @@ describe("Checkbox", () => {
       render(
         <Checkbox label="Accept" helperText="Read carefully" error="Required" />
       );
-      const checkbox = screen.getByLabelText("Accept");
 
       // Should only show error (helper is hidden when error present)
       expect(screen.queryByText("Read carefully")).not.toBeInTheDocument();
