@@ -2,6 +2,18 @@
 src/
 *.test.tsx
 *.test.ts
+src/**/*.test.ts
+src/**/*.test.tsx
+src/**/*.stories.tsx
+src/**/*.stories.ts
+src/**/*.a11y.test.tsx
+src/**/*.sr.test.ts
+src/test/
+tests/
+test-results/
+playwright-report/
+.storybook/
+storybook-static/
 
 # Config files
 vite.config.ts
@@ -25,3 +37,14 @@ node_modules/
 # Misc
 .DS_Store
 *.log
+
+#Enviroment files
+.env
+.env.*
+
+*.log
+
+*.tgz
+
+# Keep only dist folder
+!dist/

@@ -13,7 +13,15 @@ export default defineConfig({
     react(),
     dts({
       include: ["src"],
-      exclude: ["**/*.test.tsx", "**/*.test.ts", "**/test/**"],
+      exclude: [
+        "**/*.test.tsx",
+        "**/*.test.ts",
+        "**/*.stories.tsx",
+        "**/*.stories.ts",
+        "**/test/**",
+        "**/*.a11y.test.tsx",
+        "**/*.sr.test.ts",
+      ],
       rollupTypes: true,
       outDir: "dist",
     }),
