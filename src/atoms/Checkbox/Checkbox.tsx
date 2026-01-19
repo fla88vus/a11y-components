@@ -1,54 +1,15 @@
-import React, { useId } from "react";
+import React, { useId, useEffect, useRef } from "react";
 import styles from "./Checkbox.module.css";
 
 export interface CheckboxProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
-  /**
-   * Checkbox label (required for accessibility)
-   */
   label: string;
-
-  /**
-   * Checkbox size
-   * @default "medium"
-   */
   size?: "small" | "medium" | "large";
-
-  /**
-   * Error message (when present, checkbox is marked as invalid)
-   */
   error?: string;
-
-  /**
-   * Helper text (additional description)
-   */
   helperText?: string;
+  indeterminate?: boolean;
 }
 
-/**
- * Accessible Checkbox component following WCAG 2.1 AA standards
- *
- * Features:
- * - Native <input type="checkbox"> element for semantic HTML
- * - Proper label association via htmlFor
- * - Space key toggles checked state (native behavior)
- * - Error states with aria-invalid and aria-describedby
- * - Helper text support
- * - Visible focus indicator
- * - Required indicator
- *
- * @example
- * ```tsx
- * <Checkbox label="I agree to terms" required />
- *
- * <Checkbox
- *   label="Subscribe to newsletter"
- *   checked={isChecked}
- *   onChange={(e) => setIsChecked(e.target.checked)}
- *   error="This field is required"
- * />
- * ```
- */
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
@@ -58,27 +19,37 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       helperText,
       disabled = false,
       required = false,
+      indeterminate = false,
       className,
       id: providedId,
       ...props
     },
     ref
   ) => {
-    // Generate unique IDs for accessibility
+    const internalRef = useRef<HTMLInputElement>(null);
+    const checkboxRef =
+      (ref as React.RefObject<HTMLInputElement>) || internalRef;
+
     const generatedId = useId();
     const id = providedId || generatedId;
     const errorId = error ? `${id}-error` : undefined;
     const helperTextId = helperText ? `${id}-helper` : undefined;
 
-    // Build aria-describedby
     const describedBy =
       [errorId, helperTextId].filter(Boolean).join(" ") || undefined;
+
+    useEffect(() => {
+      if (checkboxRef.current) {
+        checkboxRef.current.indeterminate = indeterminate;
+      }
+    }, [indeterminate, checkboxRef]);
 
     const checkboxClasses = [
       styles.checkbox,
       styles[size],
       error && styles.error,
       disabled && styles.disabled,
+      indeterminate && styles.indeterminate,
       className,
     ]
       .filter(Boolean)
@@ -96,7 +67,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       <div className={styles.checkboxWrapper}>
         <div className={styles.inputGroup}>
           <input
-            ref={ref}
+            ref={checkboxRef}
             id={id}
             type="checkbox"
             className={checkboxClasses}
@@ -105,6 +76,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             aria-invalid={error ? true : undefined}
             aria-describedby={describedBy}
             aria-required={required || undefined}
+            aria-checked={indeterminate ? "mixed" : undefined}
             {...props}
           />
 

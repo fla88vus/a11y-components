@@ -1,6 +1,6 @@
 {
   "name": "@flavia-dev/a11y-ui-kit-react",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "Enterprise-grade accessible React components library following WCAG 2.1 AA/AAA standards. Production-ready, type-safe, and fully customizable UI components with built-in accessibility.",
   "type": "module",
   "main": "./dist/index.cjs",

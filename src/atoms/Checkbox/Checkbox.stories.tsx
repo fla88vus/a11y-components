@@ -138,7 +138,6 @@ export const DisabledChecked: Story = {
   },
 };
 
-// Size variants
 export const Small: Story = {
   args: {
     label: "Checkbox piccola",
@@ -160,7 +159,6 @@ export const Large: Story = {
   },
 };
 
-// Combined states
 export const RequiredWithError: Story = {
   args: {
     label: "Accetto la privacy policy",
@@ -186,7 +184,6 @@ export const LargeRequired: Story = {
   },
 };
 
-// Form example
 export const FormExample: Story = {
   name: "📋 Esempio Form",
   render: () => (
@@ -222,7 +219,6 @@ export const FormExample: Story = {
   ),
 };
 
-// All sizes comparison
 export const AllSizes: Story = {
   name: "📏 Tutte le Dimensioni",
   render: () => (
@@ -241,7 +237,6 @@ export const AllSizes: Story = {
   ),
 };
 
-// State combinations
 export const StateShowcase: Story = {
   name: "🎨 Showcase Stati",
   render: () => (
@@ -264,7 +259,6 @@ export const StateShowcase: Story = {
   ),
 };
 
-// Accessibility examples
 export const AccessibilityShowcase: Story = {
   name: "🔍 Esempi Accessibilità",
   render: () => (
@@ -358,7 +352,6 @@ Prova a navigare questo esempio con:
   },
 };
 
-// WCAG Testing Examples
 export const WCAGTesting: Story = {
   name: "🧪 Guida Testing WCAG",
   render: () => (
@@ -580,4 +573,429 @@ Il codice mostra un pattern comune per form con validazione real-time.
       },
     },
   },
+};
+
+export const Indeterminate: Story = {
+  args: {
+    label: "Select all items",
+    indeterminate: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+Lo stato **indeterminate** rappresenta una selezione parziale, comunemente usato per checkbox "Select All" 
+quando solo alcuni elementi figli sono selezionati.
+
+**Caratteristiche:**
+- Lo stato indeterminate è solo visuale (non viene inviato nei form data)
+- Usa \`aria-checked="mixed"\` per corretta semantica ARIA (WCAG 4.1.2)
+- Mostra un'icona dash/minus invece del checkmark
+- Tipicamente usato in liste gerarchiche, tree views o selezioni multiple
+
+**WCAG Conformance:**
+- ✅ **4.1.2 Name, Role, Value**: Lo stato è annunciato correttamente agli screen reader come "mixed"
+- ✅ **1.4.1 Use of Color**: L'indicatore visivo non si basa solo sul colore
+        `,
+      },
+    },
+  },
+};
+
+export const IndeterminateSmall: Story = {
+  args: {
+    label: "Select all (piccola)",
+    indeterminate: true,
+    size: "small",
+  },
+};
+
+export const IndeterminateLarge: Story = {
+  args: {
+    label: "Select all (grande)",
+    indeterminate: true,
+    size: "large",
+  },
+};
+
+export const IndeterminateDisabled: Story = {
+  args: {
+    label: "Selezione parzialmente completata",
+    indeterminate: true,
+    disabled: true,
+  },
+};
+
+// Interactive indeterminate example
+export const IndeterminateInteractive: Story = {
+  name: "🎮 Indeterminate - Select All",
+  render: function IndeterminateExample() {
+    const [items, setItems] = React.useState([
+      { id: 1, label: "Item 1", checked: true },
+      { id: 2, label: "Item 2", checked: false },
+      { id: 3, label: "Item 3", checked: true },
+      { id: 4, label: "Item 4", checked: false },
+    ]);
+
+    const allChecked = items.every((item) => item.checked);
+    const someChecked = items.some((item) => item.checked);
+    const noneChecked = !someChecked;
+
+    // Determina lo stato del checkbox "Select All"
+    const selectAllIndeterminate = someChecked && !allChecked;
+
+    const handleSelectAll = () => {
+      // Se tutti sono selezionati, deseleziona tutti
+      // Altrimenti, seleziona tutti
+      const newChecked = !allChecked;
+      setItems(items.map((item) => ({ ...item, checked: newChecked })));
+    };
+
+    const handleItemChange = (id: number) => {
+      setItems(
+        items.map((item) =>
+          item.id === id ? { ...item, checked: !item.checked } : item
+        )
+      );
+    };
+
+    return (
+      <div style={{ maxWidth: "400px" }}>
+        <h3>Select All con Indeterminate State</h3>
+        <p style={{ marginBottom: "1rem", color: "#6b7280" }}>
+          Questo esempio mostra l'uso corretto dello stato indeterminate per un
+          checkbox "Select All"
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+            padding: "1rem",
+            background: "#f9fafb",
+            borderRadius: "0.5rem",
+          }}
+        >
+          <Checkbox
+            label="Seleziona tutto"
+            checked={allChecked}
+            indeterminate={selectAllIndeterminate}
+            onChange={handleSelectAll}
+          />
+
+          <div
+            style={{
+              marginLeft: "2rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.75rem",
+              paddingTop: "0.5rem",
+              borderTop: "1px solid #e5e7eb",
+            }}
+          >
+            {items.map((item) => (
+              <Checkbox
+                key={item.id}
+                label={item.label}
+                checked={item.checked}
+                onChange={() => handleItemChange(item.id)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div
+          style={{
+            marginTop: "1rem",
+            padding: "1rem",
+            background: "#f3f4f6",
+            borderRadius: "0.375rem",
+            fontSize: "0.875rem",
+          }}
+        >
+          <p style={{ margin: 0, fontWeight: 500, marginBottom: "0.5rem" }}>
+            Stato corrente:
+          </p>
+          <ul style={{ margin: 0, paddingLeft: "1.5rem" }}>
+            <li>
+              Tutti selezionati: {allChecked ? "✅ Sì" : "❌ No"} (checked)
+            </li>
+            <li>
+              Alcuni selezionati: {selectAllIndeterminate ? "✅ Sì" : "❌ No"}{" "}
+              (indeterminate)
+            </li>
+            <li>
+              Nessuno selezionato: {noneChecked ? "✅ Sì" : "❌ No"} (unchecked)
+            </li>
+          </ul>
+        </div>
+
+        <details style={{ marginTop: "1rem", fontSize: "0.875rem" }}>
+          <summary>Implementazione</summary>
+          <pre
+            style={{
+              background: "#1f2937",
+              color: "#f9fafb",
+              padding: "1rem",
+              borderRadius: "0.375rem",
+              marginTop: "0.5rem",
+              overflow: "auto",
+            }}
+          >
+            {`const allChecked = items.every(item => item.checked);
+const someChecked = items.some(item => item.checked);
+const indeterminate = someChecked && !allChecked;
+
+<Checkbox
+  label="Select all"
+  checked={allChecked}
+  indeterminate={indeterminate}
+  onChange={handleSelectAll}
+/>`}
+          </pre>
+        </details>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+## Pattern "Select All" con Indeterminate
+
+Questo è il pattern più comune per l'uso dello stato indeterminate:
+
+### Stati possibili:
+1. **Unchecked** (☐): Nessun item selezionato
+2. **Indeterminate** (▣): Alcuni item selezionati
+3. **Checked** (☑): Tutti gli item selezionati
+
+### Logica implementativa:
+\`\`\`typescript
+const allChecked = items.every(item => item.checked);
+const someChecked = items.some(item => item.checked);
+const indeterminate = someChecked && !allChecked;
+\`\`\`
+
+### Accessibilità:
+- Lo stato indeterminate viene annunciato come "mixed" agli screen reader
+- Il comportamento del click è consistente: da indeterminate → tutti selezionati
+- La navigazione da tastiera funziona identica agli altri checkbox
+
+### Best Practices:
+- Usa indeterminate solo per rappresentare selezioni parziali
+- Non usarlo per stati di loading o pending
+- Mantieni la logica chiara e prevedibile per l'utente
+        `,
+      },
+    },
+  },
+};
+
+// Hierarchical tree example
+export const IndeterminateHierarchy: Story = {
+  name: "🌳 Indeterminate - Tree View",
+  render: function HierarchyExample() {
+    const [tree, setTree] = React.useState({
+      parent1: {
+        checked: false,
+        children: [
+          { id: "1-1", label: "Child 1.1", checked: false },
+          { id: "1-2", label: "Child 1.2", checked: true },
+          { id: "1-3", label: "Child 1.3", checked: false },
+        ],
+      },
+      parent2: {
+        checked: false,
+        children: [
+          { id: "2-1", label: "Child 2.1", checked: true },
+          { id: "2-2", label: "Child 2.2", checked: true },
+        ],
+      },
+    });
+
+    const getParentState = (parentKey: keyof typeof tree) => {
+      const children = tree[parentKey].children;
+      const allChecked = children.every((child) => child.checked);
+      const someChecked = children.some((child) => child.checked);
+      const indeterminate = someChecked && !allChecked;
+
+      return { checked: allChecked, indeterminate };
+    };
+
+    const handleParentChange = (parentKey: keyof typeof tree) => {
+      const allChecked = tree[parentKey].children.every((c) => c.checked);
+      const newChecked = !allChecked;
+
+      setTree((prev) => ({
+        ...prev,
+        [parentKey]: {
+          ...prev[parentKey],
+          children: prev[parentKey].children.map((child) => ({
+            ...child,
+            checked: newChecked,
+          })),
+        },
+      }));
+    };
+
+    const handleChildChange = (
+      parentKey: keyof typeof tree,
+      childId: string
+    ) => {
+      setTree((prev) => ({
+        ...prev,
+        [parentKey]: {
+          ...prev[parentKey],
+          children: prev[parentKey].children.map((child) =>
+            child.id === childId ? { ...child, checked: !child.checked } : child
+          ),
+        },
+      }));
+    };
+
+    const parent1State = getParentState("parent1");
+    const parent2State = getParentState("parent2");
+
+    return (
+      <div style={{ maxWidth: "500px" }}>
+        <h3>Selezione Gerarchica (Tree View)</h3>
+        <p style={{ marginBottom: "1rem", color: "#6b7280" }}>
+          Esempio di checkbox indeterminate in una struttura ad albero con
+          parent-child
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.5rem",
+            padding: "1rem",
+            background: "#f9fafb",
+            borderRadius: "0.5rem",
+          }}
+        >
+          {/* Parent 1 */}
+          <div>
+            <Checkbox
+              label="📁 Cartella 1"
+              checked={parent1State.checked}
+              indeterminate={parent1State.indeterminate}
+              onChange={() => handleParentChange("parent1")}
+            />
+            <div style={{ marginLeft: "2rem", marginTop: "0.5rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5rem",
+                }}
+              >
+                {tree.parent1.children.map((child) => (
+                  <Checkbox
+                    key={child.id}
+                    label={`📄 ${child.label}`}
+                    checked={child.checked}
+                    onChange={() => handleChildChange("parent1", child.id)}
+                    size="small"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Parent 2 */}
+          <div>
+            <Checkbox
+              label="📁 Cartella 2"
+              checked={parent2State.checked}
+              indeterminate={parent2State.indeterminate}
+              onChange={() => handleParentChange("parent2")}
+            />
+            <div style={{ marginLeft: "2rem", marginTop: "0.5rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5rem",
+                }}
+              >
+                {tree.parent2.children.map((child) => (
+                  <Checkbox
+                    key={child.id}
+                    label={`📄 ${child.label}`}
+                    checked={child.checked}
+                    onChange={() => handleChildChange("parent2", child.id)}
+                    size="small"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            marginTop: "1rem",
+            padding: "0.75rem",
+            background: "#dbeafe",
+            borderRadius: "0.375rem",
+            fontSize: "0.875rem",
+          }}
+        >
+          <p style={{ margin: 0, fontWeight: 500 }}>💡 Comportamento:</p>
+          <ul style={{ margin: "0.5rem 0 0", paddingLeft: "1.5rem" }}>
+            <li>Selezionare il parent seleziona tutti i figli</li>
+            <li>Deselezionare il parent deseleziona tutti i figli</li>
+            <li>
+              Stato indeterminate appare quando alcuni (ma non tutti) i figli
+              sono selezionati
+            </li>
+          </ul>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+## Selezione Gerarchica con Indeterminate
+
+Questo pattern è usato per rappresentare relazioni parent-child in strutture ad albero:
+
+### Use Cases:
+- File manager (selezione cartelle/file)
+- Permessi utente gerarchici
+- Filtri categorizzati
+- Menu di navigazione con sotto-menu
+
+### Logica Parent-Child:
+\`\`\`typescript
+const allChildrenChecked = parent.children.every(c => c.checked);
+const someChildrenChecked = parent.children.some(c => c.checked);
+const indeterminate = someChildrenChecked && !allChildrenChecked;
+\`\`\`
+
+### Accessibilità:
+- Ogni livello è navigabile indipendentemente con Tab
+- Gli screen reader annunciano correttamente la gerarchia
+- Lo stato "mixed" viene comunicato per i parent parzialmente selezionati
+        `,
+      },
+    },
+  },
+};
+
+// Comparison of all indeterminate sizes
+export const IndeterminateAllSizes: Story = {
+  name: "📏 Indeterminate - Tutte le Dimensioni",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <Checkbox label="Piccola - Indeterminate" size="small" indeterminate />
+      <Checkbox label="Media - Indeterminate" size="medium" indeterminate />
+      <Checkbox label="Grande - Indeterminate" size="large" indeterminate />
+    </div>
+  ),
 };

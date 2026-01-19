@@ -356,4 +356,140 @@ describe("Checkbox", () => {
       expect(checkbox).toHaveAttribute("required");
     });
   });
+
+  // ===================================
+  // INDETERMINATE STATE
+  // ===================================
+
+  describe("Indeterminate State", () => {
+    it("supports indeterminate state", () => {
+      render(<Checkbox label="Select all" indeterminate={true} />);
+      const checkbox = screen.getByLabelText("Select all") as HTMLInputElement;
+
+      expect(checkbox.indeterminate).toBe(true);
+    });
+
+    it("is not indeterminate by default", () => {
+      render(<Checkbox label="Select all" />);
+      const checkbox = screen.getByLabelText("Select all") as HTMLInputElement;
+
+      expect(checkbox.indeterminate).toBe(false);
+    });
+
+    it("sets aria-checked='mixed' when indeterminate", () => {
+      render(<Checkbox label="Select all" indeterminate={true} />);
+      const checkbox = screen.getByLabelText("Select all");
+
+      expect(checkbox).toHaveAttribute("aria-checked", "mixed");
+    });
+
+    it("does not set aria-checked='mixed' when not indeterminate", () => {
+      render(<Checkbox label="Select all" indeterminate={false} />);
+      const checkbox = screen.getByLabelText("Select all");
+
+      expect(checkbox).not.toHaveAttribute("aria-checked", "mixed");
+    });
+
+    it("updates indeterminate state when prop changes", () => {
+      const { rerender } = render(
+        <Checkbox label="Select all" indeterminate={false} />
+      );
+      const checkbox = screen.getByLabelText("Select all") as HTMLInputElement;
+
+      expect(checkbox.indeterminate).toBe(false);
+
+      rerender(<Checkbox label="Select all" indeterminate={true} />);
+      expect(checkbox.indeterminate).toBe(true);
+
+      rerender(<Checkbox label="Select all" indeterminate={false} />);
+      expect(checkbox.indeterminate).toBe(false);
+    });
+
+    it("can be both checked and indeterminate", () => {
+      render(
+        <Checkbox
+          label="Select all"
+          checked={true}
+          indeterminate={true}
+          onChange={() => {}}
+        />
+      );
+      const checkbox = screen.getByLabelText("Select all") as HTMLInputElement;
+
+      expect(checkbox).toBeChecked();
+      expect(checkbox.indeterminate).toBe(true);
+    });
+
+    it("clicking indeterminate checkbox calls onChange", async () => {
+      const handleChange = vi.fn();
+      render(
+        <Checkbox
+          label="Select all"
+          indeterminate={true}
+          onChange={handleChange}
+        />
+      );
+      const checkbox = screen.getByLabelText("Select all");
+
+      await userEvent.click(checkbox);
+
+      expect(handleChange).toHaveBeenCalledTimes(1);
+    });
+
+    it("applies indeterminate CSS class", () => {
+      render(<Checkbox label="Select all" indeterminate={true} />);
+      const checkbox = screen.getByLabelText("Select all");
+
+      expect(checkbox).toHaveClass("indeterminate");
+    });
+
+    it("indeterminate state works with all sizes", () => {
+      const { rerender } = render(
+        <Checkbox label="Select all" indeterminate={true} size="small" />
+      );
+      let checkbox = screen.getByLabelText("Select all") as HTMLInputElement;
+      expect(checkbox.indeterminate).toBe(true);
+      expect(checkbox).toHaveClass("small");
+
+      rerender(
+        <Checkbox label="Select all" indeterminate={true} size="medium" />
+      );
+      checkbox = screen.getByLabelText("Select all") as HTMLInputElement;
+      expect(checkbox.indeterminate).toBe(true);
+      expect(checkbox).toHaveClass("medium");
+
+      rerender(
+        <Checkbox label="Select all" indeterminate={true} size="large" />
+      );
+      checkbox = screen.getByLabelText("Select all") as HTMLInputElement;
+      expect(checkbox.indeterminate).toBe(true);
+      expect(checkbox).toHaveClass("large");
+    });
+
+    it("indeterminate state works with disabled", () => {
+      render(
+        <Checkbox label="Select all" indeterminate={true} disabled={true} />
+      );
+      const checkbox = screen.getByLabelText("Select all") as HTMLInputElement;
+
+      expect(checkbox.indeterminate).toBe(true);
+      expect(checkbox).toBeDisabled();
+    });
+
+    it("maintains indeterminate state with ref", () => {
+      const ref = React.createRef<HTMLInputElement>();
+      render(<Checkbox label="Select all" indeterminate={true} ref={ref} />);
+
+      expect(ref.current?.indeterminate).toBe(true);
+    });
+
+    // WCAG 4.1.2 - Name, Role, Value
+    it("announces indeterminate state to screen readers (WCAG 4.1.2)", () => {
+      render(<Checkbox label="Select all items" indeterminate={true} />);
+      const checkbox = screen.getByLabelText("Select all items");
+
+      // aria-checked="mixed" tells screen readers about the indeterminate state
+      expect(checkbox).toHaveAttribute("aria-checked", "mixed");
+    });
+  });
 });

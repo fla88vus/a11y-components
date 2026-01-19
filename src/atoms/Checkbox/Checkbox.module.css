@@ -1,18 +1,15 @@
-/* Wrapper */
 .checkboxWrapper {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-/* Input + Label inline */
 .inputGroup {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-/* Checkbox base */
 .checkbox {
   appearance: none;
   -webkit-appearance: none;
@@ -27,20 +24,16 @@
   transition: all 0.2s ease-in-out;
   position: relative;
 }
-
-/* WCAG 2.1 SC 2.4.7: Focus Visible */
 .checkbox:focus-visible {
   outline: 3px solid #3b82f6;
   outline-offset: 2px;
 }
 
-/* Checked state */
 .checkbox:checked {
   background-color: #3b82f6;
   border-color: #3b82f6;
 }
 
-/* Checkmark icon */
 .checkbox:checked::after {
   content: "";
   position: absolute;
@@ -53,25 +46,38 @@
   transform: rotate(45deg);
 }
 
-/* Hover state */
+.checkbox.indeterminate {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.checkbox.indeterminate::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.65rem;
+  height: 0.15rem;
+  background-color: #ffffff;
+  border-radius: 1px;
+}
+
 .checkbox:not(:disabled):hover {
   border-color: #3b82f6;
 }
 
-/* Disabled state */
 .checkbox:disabled {
   cursor: not-allowed;
   opacity: 0.5;
   background-color: #f3f4f6;
 }
 
-/* Error state - WCAG 2.1 SC 1.4.1: Use of Color */
 .checkbox.error {
   border-color: #ef4444;
   border-width: 2.5px;
 }
 
-/* Size variants */
 .checkbox.small {
   width: 1rem;
   height: 1rem;
@@ -98,7 +104,16 @@
   border-width: 0 3px 3px 0;
 }
 
-/* Label */
+.checkbox.small.indeterminate::after {
+  width: 0.5rem;
+  height: 0.125rem;
+}
+
+.checkbox.large.indeterminate::after {
+  width: 0.8rem;
+  height: 0.175rem;
+}
+
 .label {
   font-size: 1rem;
   line-height: 1.5;
@@ -112,13 +127,11 @@
   opacity: 0.5;
 }
 
-/* Required indicator */
 .requiredIndicator {
   color: #ef4444;
   font-weight: 600;
 }
 
-/* Helper text */
 .helperText {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -126,7 +139,6 @@
   margin-left: 1.75rem;
 }
 
-/* Error text - WCAG 2.1 SC 1.4.3: Contrast (Minimum) */
 .errorText {
   font-size: 0.875rem;
   line-height: 1.25rem;
