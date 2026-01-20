@@ -1,10 +1,12 @@
-import React, { useId } from "react";
-import styles from "./Radio.module.css";
+import React, { useId } from 'react';
+import styles from './Radio.module.css';
 
-export interface RadioProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
+export interface RadioProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'size' | 'type'
+> {
   label: string;
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   error?: string;
   helperText?: string;
   name: string;
@@ -15,7 +17,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
     {
       label,
-      size = "medium",
+      size = 'medium',
       error,
       helperText,
       disabled = false,
@@ -33,8 +35,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     const errorId = error ? `${id}-error` : undefined;
     const helperTextId = helperText ? `${id}-helper` : undefined;
 
-    const describedBy =
-      [errorId, helperTextId].filter(Boolean).join(" ") || undefined;
+    const describedBy = [errorId, helperTextId].filter(Boolean).join(' ') || undefined;
 
     const radioClasses = [
       styles.radio,
@@ -44,15 +45,11 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       className,
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
-    const labelClasses = [
-      styles.label,
-      disabled && styles.disabled,
-      required && styles.required,
-    ]
+    const labelClasses = [styles.label, disabled && styles.disabled, required && styles.required]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
     return (
       <div className={styles.radioWrapper}>
@@ -66,9 +63,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
             className={radioClasses}
             disabled={disabled}
             required={required}
-            aria-invalid={error ? true : undefined}
             aria-describedby={describedBy}
-            aria-required={required || undefined}
             {...props}
           />
 
@@ -76,7 +71,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
             {label}
             {required && (
               <span className={styles.requiredIndicator} aria-label="required">
-                {" "}
+                {' '}
                 *
               </span>
             )}
@@ -99,4 +94,4 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   }
 );
 
-Radio.displayName = "Radio";
+Radio.displayName = 'Radio';

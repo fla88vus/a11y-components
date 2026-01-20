@@ -1,8 +1,7 @@
-import React, { useId } from "react";
-import styles from "./Input.module.css";
+import React, { useId } from 'react';
+import styles from './Input.module.css';
 
-export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   /**
    * Input label (required for accessibility)
    */
@@ -12,13 +11,13 @@ export interface InputProps
    * Input type
    * @default "text"
    */
-  type?: "text" | "email" | "password" | "tel" | "url" | "search" | "number";
+  type?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'search' | 'number';
 
   /**
    * Input size
    * @default "medium"
    */
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
 
   /**
    * Error message (when present, input is marked as invalid)
@@ -69,8 +68,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       label,
-      type = "text",
-      size = "medium",
+      type = 'text',
+      size = 'medium',
       error,
       helperText,
       fullWidth = false,
@@ -90,7 +89,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const helperTextId = helperText ? `${id}-helper` : undefined;
 
     // Build aria-describedby
-    const describedBy = [errorId, helperTextId].filter(Boolean).join(" ") || undefined;
+    const describedBy = [errorId, helperTextId].filter(Boolean).join(' ') || undefined;
 
     const inputClasses = [
       styles.input,
@@ -101,7 +100,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       className,
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
     const labelClasses = [
       styles.label,
@@ -109,13 +108,18 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       required && styles.required,
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
     return (
-      <div className={`${styles.inputWrapper} ${fullWidth ? styles.fullWidth : ""}`}>
+      <div className={`${styles.inputWrapper} ${fullWidth ? styles.fullWidth : ''}`}>
         <label htmlFor={id} className={labelClasses}>
           {label}
-          {required && <span className={styles.requiredIndicator} aria-label="required"> *</span>}
+          {required && (
+            <span className={styles.requiredIndicator} aria-label="required">
+              {' '}
+              *
+            </span>
+          )}
         </label>
 
         <input
@@ -147,4 +151,4 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
+Input.displayName = 'Input';

@@ -1,92 +1,78 @@
 // src/atoms/Radio/Radio.test.tsx
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, it, expect, vi } from "vitest";
-import { Radio } from "./Radio";
-import React from "react";
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { describe, it, expect, vi } from 'vitest';
+import { Radio } from './Radio';
+import React from 'react';
 
-describe("Radio", () => {
+describe('Radio', () => {
   // ===================================
   // BASIC RENDERING
   // ===================================
 
-  it("renders with label", () => {
+  it('renders with label', () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" />);
-    expect(screen.getByLabelText("Basic Plan")).toBeInTheDocument();
+    expect(screen.getByLabelText('Basic Plan')).toBeInTheDocument();
   });
 
-  it("associates label with input correctly", () => {
+  it('associates label with input correctly', () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" />);
-    const radio = screen.getByLabelText("Basic Plan");
-    const label = screen.getByText("Basic Plan");
+    const radio = screen.getByLabelText('Basic Plan');
+    const label = screen.getByText('Basic Plan');
 
-    expect(radio).toHaveAttribute("id");
-    expect(label).toHaveAttribute("for", radio.id);
+    expect(radio).toHaveAttribute('id');
+    expect(label).toHaveAttribute('for', radio.id);
   });
 
-  it("renders as radio input type", () => {
+  it('renders as radio input type', () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" />);
-    const radio = screen.getByLabelText("Basic Plan");
+    const radio = screen.getByLabelText('Basic Plan');
 
-    expect(radio).toHaveAttribute("type", "radio");
+    expect(radio).toHaveAttribute('type', 'radio');
   });
 
-  it("has correct name attribute", () => {
+  it('has correct name attribute', () => {
     render(<Radio name="subscription" value="monthly" label="Monthly" />);
-    const radio = screen.getByLabelText("Monthly");
+    const radio = screen.getByLabelText('Monthly');
 
-    expect(radio).toHaveAttribute("name", "subscription");
+    expect(radio).toHaveAttribute('name', 'subscription');
   });
 
-  it("has correct value attribute", () => {
+  it('has correct value attribute', () => {
     render(<Radio name="plan" value="pro" label="Pro Plan" />);
-    const radio = screen.getByLabelText("Pro Plan");
+    const radio = screen.getByLabelText('Pro Plan');
 
-    expect(radio).toHaveAttribute("value", "pro");
+    expect(radio).toHaveAttribute('value', 'pro');
   });
 
   // ===================================
   // CHECKED STATE
   // ===================================
 
-  it("is unchecked by default", () => {
+  it('is unchecked by default', () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" />);
-    const radio = screen.getByLabelText("Basic Plan");
+    const radio = screen.getByLabelText('Basic Plan');
 
     expect(radio).not.toBeChecked();
   });
 
-  it("can be checked with defaultChecked prop (uncontrolled)", () => {
-    render(
-      <Radio name="plan" value="basic" label="Basic Plan" defaultChecked />
-    );
-    const radio = screen.getByLabelText("Basic Plan");
+  it('can be checked with defaultChecked prop (uncontrolled)', () => {
+    render(<Radio name="plan" value="basic" label="Basic Plan" defaultChecked />);
+    const radio = screen.getByLabelText('Basic Plan');
 
     expect(radio).toBeChecked();
   });
 
-  it("respects checked prop (controlled)", () => {
+  it('respects checked prop (controlled)', () => {
     const { rerender } = render(
-      <Radio
-        name="plan"
-        value="basic"
-        label="Basic Plan"
-        checked={false}
-        onChange={() => {}}
-      />
+      <Radio name="plan" value="basic" label="Basic Plan" checked={false} onChange={() => {}} />
     );
-    const radio = screen.getByLabelText("Basic Plan");
+    const radio = screen.getByLabelText('Basic Plan');
 
     expect(radio).not.toBeChecked();
 
     rerender(
-      <Radio
-        name="plan"
-        value="basic"
-        label="Basic Plan"
-        checked={true}
-        onChange={() => {}}
-      />
+      <Radio name="plan" value="basic" label="Basic Plan" checked={true} onChange={() => {}} />
     );
     expect(radio).toBeChecked();
   });
@@ -95,9 +81,9 @@ describe("Radio", () => {
   // USER INTERACTION
   // ===================================
 
-  it("can be checked when clicked", async () => {
+  it('can be checked when clicked', async () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" />);
-    const radio = screen.getByLabelText("Basic Plan");
+    const radio = screen.getByLabelText('Basic Plan');
 
     expect(radio).not.toBeChecked();
 
@@ -105,10 +91,10 @@ describe("Radio", () => {
     expect(radio).toBeChecked();
   });
 
-  it("can be checked when label is clicked", async () => {
+  it('can be checked when label is clicked', async () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" />);
-    const radio = screen.getByLabelText("Basic Plan");
-    const label = screen.getByText("Basic Plan");
+    const radio = screen.getByLabelText('Basic Plan');
+    const label = screen.getByText('Basic Plan');
 
     expect(radio).not.toBeChecked();
 
@@ -116,28 +102,21 @@ describe("Radio", () => {
     expect(radio).toBeChecked();
   });
 
-  it("can be checked with Space key", async () => {
+  it('can be checked with Space key', async () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" />);
-    const radio = screen.getByLabelText("Basic Plan");
+    const radio = screen.getByLabelText('Basic Plan');
 
     radio.focus();
     expect(radio).not.toBeChecked();
 
-    await userEvent.keyboard(" ");
+    await userEvent.keyboard(' ');
     expect(radio).toBeChecked();
   });
 
-  it("calls onChange handler when clicked", async () => {
+  it('calls onChange handler when clicked', async () => {
     const handleChange = vi.fn();
-    render(
-      <Radio
-        name="plan"
-        value="basic"
-        label="Basic Plan"
-        onChange={handleChange}
-      />
-    );
-    const radio = screen.getByLabelText("Basic Plan");
+    render(<Radio name="plan" value="basic" label="Basic Plan" onChange={handleChange} />);
+    const radio = screen.getByLabelText('Basic Plan');
 
     await userEvent.click(radio);
 
@@ -146,7 +125,7 @@ describe("Radio", () => {
       expect.objectContaining({
         target: expect.objectContaining({
           checked: true,
-          value: "basic",
+          value: 'basic',
         }),
       })
     );
@@ -156,7 +135,7 @@ describe("Radio", () => {
   // RADIO GROUPS
   // ===================================
 
-  it("radio buttons with same name are mutually exclusive", async () => {
+  it('radio buttons with same name are mutually exclusive', async () => {
     render(
       <>
         <Radio name="plan" value="basic" label="Basic" />
@@ -165,9 +144,9 @@ describe("Radio", () => {
       </>
     );
 
-    const basicRadio = screen.getByLabelText("Basic");
-    const proRadio = screen.getByLabelText("Pro");
-    const enterpriseRadio = screen.getByLabelText("Enterprise");
+    const basicRadio = screen.getByLabelText('Basic');
+    const proRadio = screen.getByLabelText('Pro');
+    const enterpriseRadio = screen.getByLabelText('Enterprise');
 
     // Check basic
     await userEvent.click(basicRadio);
@@ -188,7 +167,7 @@ describe("Radio", () => {
     expect(enterpriseRadio).toBeChecked();
   });
 
-  it("radio buttons with different names are independent", async () => {
+  it('radio buttons with different names are independent', async () => {
     render(
       <>
         <Radio name="plan" value="basic" label="Basic Plan" />
@@ -196,8 +175,8 @@ describe("Radio", () => {
       </>
     );
 
-    const planRadio = screen.getByLabelText("Basic Plan");
-    const billingRadio = screen.getByLabelText("Monthly Billing");
+    const planRadio = screen.getByLabelText('Basic Plan');
+    const billingRadio = screen.getByLabelText('Monthly Billing');
 
     await userEvent.click(planRadio);
     await userEvent.click(billingRadio);
@@ -207,9 +186,9 @@ describe("Radio", () => {
     expect(billingRadio).toBeChecked();
   });
 
-  it("once checked, cannot be unchecked by clicking again", async () => {
+  it('once checked, cannot be unchecked by clicking again', async () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" />);
-    const radio = screen.getByLabelText("Basic Plan");
+    const radio = screen.getByLabelText('Basic Plan');
 
     // Check the radio
     await userEvent.click(radio);
@@ -224,51 +203,30 @@ describe("Radio", () => {
   // ERROR STATE
   // ===================================
 
-  it("shows error message when error prop is provided", () => {
-    render(
-      <Radio
-        name="plan"
-        value="basic"
-        label="Basic Plan"
-        error="Please select a plan"
-      />
-    );
+  it('shows error message when error prop is provided', () => {
+    render(<Radio name="plan" value="basic" label="Basic Plan" error="Please select a plan" />);
 
-    expect(screen.getByText("Please select a plan")).toBeInTheDocument();
-    expect(screen.getByRole("alert")).toHaveTextContent("Please select a plan");
+    expect(screen.getByText('Please select a plan')).toBeInTheDocument();
+    expect(screen.getByRole('alert')).toHaveTextContent('Please select a plan');
   });
 
-  it("marks radio as invalid when error is present", () => {
-    render(
-      <Radio
-        name="plan"
-        value="basic"
-        label="Basic Plan"
-        error="Required field"
-      />
-    );
-    const radio = screen.getByLabelText("Basic Plan");
+  it('marks radio as invalid when error is present', () => {
+    render(<Radio name="plan" value="basic" label="Basic Plan" error="Required field" />);
+    const radio = screen.getByLabelText('Basic Plan');
 
-    expect(radio).toHaveAttribute("aria-invalid", "true");
+    expect(radio).toHaveAttribute('aria-invalid', 'true');
   });
 
   // ===================================
   // HELPER TEXT
   // ===================================
 
-  it("shows helper text", () => {
-    render(
-      <Radio
-        name="plan"
-        value="basic"
-        label="Basic"
-        helperText="Free forever"
-      />
-    );
-    expect(screen.getByText("Free forever")).toBeInTheDocument();
+  it('shows helper text', () => {
+    render(<Radio name="plan" value="basic" label="Basic" helperText="Free forever" />);
+    expect(screen.getByText('Free forever')).toBeInTheDocument();
   });
 
-  it("hides helper text when error is present", () => {
+  it('hides helper text when error is present', () => {
     render(
       <Radio
         name="plan"
@@ -279,60 +237,53 @@ describe("Radio", () => {
       />
     );
 
-    expect(screen.queryByText("Free option")).not.toBeInTheDocument();
-    expect(screen.getByText("Selection required")).toBeInTheDocument();
+    expect(screen.queryByText('Free option')).not.toBeInTheDocument();
+    expect(screen.getByText('Selection required')).toBeInTheDocument();
   });
 
-  it("links helper text via aria-describedby", () => {
-    render(
-      <Radio
-        name="plan"
-        value="basic"
-        label="Basic"
-        helperText="Best for individuals"
-      />
-    );
-    const radio = screen.getByLabelText("Basic");
-    const helperText = screen.getByText("Best for individuals");
+  it('links helper text via aria-describedby', () => {
+    render(<Radio name="plan" value="basic" label="Basic" helperText="Best for individuals" />);
+    const radio = screen.getByLabelText('Basic');
+    const helperText = screen.getByText('Best for individuals');
 
-    expect(radio).toHaveAttribute("aria-describedby");
-    expect(radio.getAttribute("aria-describedby")).toContain(helperText.id);
+    expect(radio).toHaveAttribute('aria-describedby');
+    expect(radio.getAttribute('aria-describedby')).toContain(helperText.id);
   });
 
   // ===================================
   // REQUIRED STATE
   // ===================================
 
-  it("shows required indicator when required", () => {
+  it('shows required indicator when required', () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" required />);
-    const requiredIndicator = screen.getByLabelText("required");
+    const requiredIndicator = screen.getByLabelText('required');
     expect(requiredIndicator).toBeInTheDocument();
-    expect(requiredIndicator).toHaveTextContent("*");
+    expect(requiredIndicator).toHaveTextContent('*');
   });
 
-  it("has required attribute when required", () => {
+  it('has required attribute when required', () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" required />);
-    const radio = screen.getByRole("radio", { name: /Basic Plan/i });
+    const radio = screen.getByRole('radio', { name: /Basic Plan/i });
 
     expect(radio).toBeRequired();
-    expect(radio).toHaveAttribute("aria-required", "true");
-    expect(radio).toHaveAttribute("required");
+    expect(radio).toHaveAttribute('aria-required', 'true');
+    expect(radio).toHaveAttribute('required');
   });
 
   // ===================================
   // DISABLED STATE
   // ===================================
 
-  it("applies disabled state correctly", () => {
+  it('applies disabled state correctly', () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" disabled />);
-    const radio = screen.getByLabelText("Basic Plan");
+    const radio = screen.getByLabelText('Basic Plan');
 
     expect(radio).toBeDisabled();
   });
 
-  it("cannot be checked when disabled", async () => {
+  it('cannot be checked when disabled', async () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" disabled />);
-    const radio = screen.getByLabelText("Basic Plan");
+    const radio = screen.getByLabelText('Basic Plan');
 
     expect(radio).not.toBeChecked();
 
@@ -340,18 +291,10 @@ describe("Radio", () => {
     expect(radio).not.toBeChecked();
   });
 
-  it("disabled radio does not call onChange", async () => {
+  it('disabled radio does not call onChange', async () => {
     const handleChange = vi.fn();
-    render(
-      <Radio
-        name="plan"
-        value="basic"
-        label="Basic Plan"
-        disabled
-        onChange={handleChange}
-      />
-    );
-    const radio = screen.getByLabelText("Basic Plan");
+    render(<Radio name="plan" value="basic" label="Basic Plan" disabled onChange={handleChange} />);
+    const radio = screen.getByLabelText('Basic Plan');
 
     await userEvent.click(radio);
 
@@ -362,53 +305,44 @@ describe("Radio", () => {
   // SIZE VARIANTS
   // ===================================
 
-  it("applies correct size classes", () => {
-    const { rerender } = render(
-      <Radio name="plan" value="basic" label="Basic" size="small" />
-    );
-    let radio = screen.getByRole("radio", { name: /Basic/i });
-    expect(radio).toHaveClass("small");
+  it('applies correct size classes', () => {
+    const { rerender } = render(<Radio name="plan" value="basic" label="Basic" size="small" />);
+    let radio = screen.getByRole('radio', { name: /Basic/i });
+    expect(radio).toHaveClass('small');
 
     rerender(<Radio name="plan" value="basic" label="Basic" size="medium" />);
-    radio = screen.getByRole("radio", { name: /Basic/i });
-    expect(radio).toHaveClass("medium");
+    radio = screen.getByRole('radio', { name: /Basic/i });
+    expect(radio).toHaveClass('medium');
 
     rerender(<Radio name="plan" value="basic" label="Basic" size="large" />);
-    radio = screen.getByRole("radio", { name: /Basic/i });
-    expect(radio).toHaveClass("large");
+    radio = screen.getByRole('radio', { name: /Basic/i });
+    expect(radio).toHaveClass('large');
   });
 
   // ===================================
   // REF FORWARDING
   // ===================================
 
-  it("forwards ref correctly", () => {
+  it('forwards ref correctly', () => {
     const ref = React.createRef<HTMLInputElement>();
     render(<Radio name="plan" value="basic" label="Basic Plan" ref={ref} />);
 
     expect(ref.current).toBeInstanceOf(HTMLInputElement);
-    expect(ref.current?.type).toBe("radio");
+    expect(ref.current?.type).toBe('radio');
   });
 
   // ===================================
   // CUSTOM ID
   // ===================================
 
-  it("uses custom id when provided", () => {
-    render(
-      <Radio
-        name="plan"
-        value="basic"
-        label="Basic Plan"
-        id="custom-radio-id"
-      />
-    );
-    const radio = screen.getByLabelText("Basic Plan");
+  it('uses custom id when provided', () => {
+    render(<Radio name="plan" value="basic" label="Basic Plan" id="custom-radio-id" />);
+    const radio = screen.getByLabelText('Basic Plan');
 
-    expect(radio).toHaveAttribute("id", "custom-radio-id");
+    expect(radio).toHaveAttribute('id', 'custom-radio-id');
   });
 
-  it("generates unique id when not provided", () => {
+  it('generates unique id when not provided', () => {
     render(
       <>
         <Radio name="plan" value="basic" label="Basic" />
@@ -416,8 +350,8 @@ describe("Radio", () => {
       </>
     );
 
-    const basicRadio = screen.getByLabelText("Basic");
-    const proRadio = screen.getByLabelText("Pro");
+    const basicRadio = screen.getByLabelText('Basic');
+    const proRadio = screen.getByLabelText('Pro');
 
     expect(basicRadio.id).toBeTruthy();
     expect(proRadio.id).toBeTruthy();
@@ -428,112 +362,93 @@ describe("Radio", () => {
   // ACCESSIBILITY - WCAG 2.1 AA/AAA
   // ===================================
 
-  describe("Accessibility - WCAG 2.1 AA/AAA", () => {
-    it("has proper label association (WCAG 1.3.1, 3.3.2)", () => {
+  describe('Accessibility - WCAG 2.1 AA/AAA', () => {
+    it('has proper label association (WCAG 1.3.1, 3.3.2)', () => {
       render(<Radio name="plan" value="basic" label="Basic Plan - $0/month" />);
 
-      const radio = screen.getByLabelText("Basic Plan - $0/month");
-      const label = screen.getByText("Basic Plan - $0/month");
+      const radio = screen.getByLabelText('Basic Plan - $0/month');
+      const label = screen.getByText('Basic Plan - $0/month');
 
-      expect(radio).toHaveAttribute("id");
-      expect(label).toHaveAttribute("for", radio.id);
+      expect(radio).toHaveAttribute('id');
+      expect(label).toHaveAttribute('for', radio.id);
     });
 
-    it("uses semantic radio input (WCAG 1.3.1)", () => {
+    it('uses semantic radio input (WCAG 1.3.1)', () => {
       render(<Radio name="plan" value="basic" label="Basic Plan" />);
-      const radio = screen.getByLabelText("Basic Plan");
+      const radio = screen.getByLabelText('Basic Plan');
 
-      expect(radio.tagName).toBe("INPUT");
-      expect(radio).toHaveAttribute("type", "radio");
+      expect(radio.tagName).toBe('INPUT');
+      expect(radio).toHaveAttribute('type', 'radio');
     });
 
-    it("error state not conveyed by color alone (WCAG 1.4.1)", () => {
-      render(
-        <Radio
-          name="plan"
-          value="basic"
-          label="Basic Plan"
-          error="Required field"
-        />
-      );
-      const radio = screen.getByLabelText("Basic Plan");
+    it('error state not conveyed by color alone (WCAG 1.4.1)', () => {
+      render(<Radio name="plan" value="basic" label="Basic Plan" error="Required field" />);
+      const radio = screen.getByLabelText('Basic Plan');
 
       // Uses aria-invalid and role="alert", not just color
-      expect(radio).toHaveAttribute("aria-invalid", "true");
-      expect(screen.getByRole("alert")).toBeInTheDocument();
+      expect(radio).toHaveAttribute('aria-invalid', 'true');
+      expect(screen.getByRole('alert')).toBeInTheDocument();
     });
 
-    it("is keyboard accessible (WCAG 2.1.1)", () => {
+    it('is keyboard accessible (WCAG 2.1.1)', () => {
       render(<Radio name="plan" value="basic" label="Basic Plan" />);
-      const radio = screen.getByLabelText("Basic Plan");
+      const radio = screen.getByLabelText('Basic Plan');
 
-      expect(radio.tagName).toBe("INPUT");
-      expect(radio).not.toHaveAttribute("tabindex", "-1");
+      expect(radio.tagName).toBe('INPUT');
+      expect(radio).not.toHaveAttribute('tabindex', '-1');
     });
 
-    it("can receive focus (WCAG 2.4.7)", () => {
+    it('can receive focus (WCAG 2.4.7)', () => {
       render(<Radio name="plan" value="basic" label="Basic Plan" />);
-      const radio = screen.getByLabelText("Basic Plan");
+      const radio = screen.getByLabelText('Basic Plan');
 
       radio.focus();
       expect(radio).toHaveFocus();
     });
 
-    it("has aria-describedby for error (WCAG 3.3.1)", () => {
-      render(
-        <Radio
-          name="plan"
-          value="basic"
-          label="Basic Plan"
-          error="This field is required"
-        />
-      );
-      const radio = screen.getByLabelText("Basic Plan");
-      const errorMessage = screen.getByText("This field is required");
+    it('has aria-describedby for error (WCAG 3.3.1)', () => {
+      render(<Radio name="plan" value="basic" label="Basic Plan" error="This field is required" />);
+      const radio = screen.getByLabelText('Basic Plan');
+      const errorMessage = screen.getByText('This field is required');
 
-      expect(radio).toHaveAttribute("aria-describedby");
-      expect(radio.getAttribute("aria-describedby")).toContain(errorMessage.id);
+      expect(radio).toHaveAttribute('aria-describedby');
+      expect(radio.getAttribute('aria-describedby')).toContain(errorMessage.id);
     });
 
-    it("has aria-describedby for helper text (WCAG 3.3.2)", () => {
+    it('has aria-describedby for helper text (WCAG 3.3.2)', () => {
       render(
-        <Radio
-          name="plan"
-          value="basic"
-          label="Basic"
-          helperText="Perfect for individuals"
-        />
+        <Radio name="plan" value="basic" label="Basic" helperText="Perfect for individuals" />
       );
-      const radio = screen.getByLabelText("Basic");
-      const helperText = screen.getByText("Perfect for individuals");
+      const radio = screen.getByLabelText('Basic');
+      const helperText = screen.getByText('Perfect for individuals');
 
-      expect(radio).toHaveAttribute("aria-describedby");
-      expect(radio.getAttribute("aria-describedby")).toContain(helperText.id);
+      expect(radio).toHaveAttribute('aria-describedby');
+      expect(radio.getAttribute('aria-describedby')).toContain(helperText.id);
     });
 
-    it("has accessible name from label (WCAG 4.1.2)", () => {
+    it('has accessible name from label (WCAG 4.1.2)', () => {
       render(<Radio name="plan" value="pro" label="Pro Plan - Best Value" />);
-      const radio = screen.getByRole("radio", {
-        name: "Pro Plan - Best Value",
+      const radio = screen.getByRole('radio', {
+        name: 'Pro Plan - Best Value',
       });
 
       expect(radio).toBeInTheDocument();
     });
 
-    it("announces required state to screen readers (WCAG 3.3.2)", () => {
+    it('announces required state to screen readers (WCAG 3.3.2)', () => {
       render(<Radio name="plan" value="basic" label="Basic Plan" required />);
-      const radio = screen.getByRole("radio", { name: /Basic Plan/i });
+      const radio = screen.getByRole('radio', { name: /Basic Plan/i });
 
-      expect(radio).toHaveAttribute("aria-required", "true");
-      expect(radio).toHaveAttribute("required");
+      expect(radio).toHaveAttribute('aria-required', 'true');
+      expect(radio).toHaveAttribute('required');
     });
 
-    it("maintains name and value for form submission (WCAG 4.1.2)", () => {
+    it('maintains name and value for form submission (WCAG 4.1.2)', () => {
       render(<Radio name="subscription" value="monthly" label="Monthly" />);
-      const radio = screen.getByLabelText("Monthly");
+      const radio = screen.getByLabelText('Monthly');
 
-      expect(radio).toHaveAttribute("name", "subscription");
-      expect(radio).toHaveAttribute("value", "monthly");
+      expect(radio).toHaveAttribute('name', 'subscription');
+      expect(radio).toHaveAttribute('value', 'monthly');
     });
   });
 });

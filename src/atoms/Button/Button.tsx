@@ -1,11 +1,10 @@
 // src/atoms/Button/Button.tsx
-import React from "react";
-import styles from "./Button.module.css";
+import React from 'react';
+import styles from './Button.module.css';
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "danger";
-  size?: "small" | "medium" | "large";
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'danger';
+  size?: 'small' | 'medium' | 'large';
   children: React.ReactNode;
   loading?: boolean;
   fullWidth?: boolean;
@@ -35,14 +34,14 @@ export interface ButtonProps
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      variant = "primary",
-      size = "medium",
+      variant = 'primary',
+      size = 'medium',
       children,
       disabled = false,
       loading = false,
       fullWidth = false,
       className,
-      type = "button",
+      type = 'button',
       onClick,
       ...props
     },
@@ -61,7 +60,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     // Handle keyboard events to prevent action when disabled
     const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-      if (isDisabled && (event.key === "Enter" || event.key === " ")) {
+      if (isDisabled && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault();
       }
     };
@@ -76,7 +75,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
     return (
       <button
@@ -90,11 +89,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading && (
-          <span
-            role="status"
-            aria-live="polite"
-            className={styles.loadingContainer}
-          >
+          <span role="status" aria-live="polite" className={styles.loadingContainer}>
             <span className={styles.spinner} aria-hidden="true" />
             <span className={styles.srOnly}>Loading...</span>
           </span>
@@ -105,4 +100,4 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-Button.displayName = "Button";
+Button.displayName = 'Button';

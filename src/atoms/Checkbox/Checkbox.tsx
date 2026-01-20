@@ -1,10 +1,12 @@
-import React, { useId, useEffect, useRef } from "react";
-import styles from "./Checkbox.module.css";
+import React, { useId, useEffect, useRef } from 'react';
+import styles from './Checkbox.module.css';
 
-export interface CheckboxProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
+export interface CheckboxProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'size' | 'type'
+> {
   label: string;
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   error?: string;
   helperText?: string;
   indeterminate?: boolean;
@@ -14,7 +16,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       label,
-      size = "medium",
+      size = 'medium',
       error,
       helperText,
       disabled = false,
@@ -27,16 +29,14 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref
   ) => {
     const internalRef = useRef<HTMLInputElement>(null);
-    const checkboxRef =
-      (ref as React.RefObject<HTMLInputElement>) || internalRef;
+    const checkboxRef = (ref as React.RefObject<HTMLInputElement>) || internalRef;
 
     const generatedId = useId();
     const id = providedId || generatedId;
     const errorId = error ? `${id}-error` : undefined;
     const helperTextId = helperText ? `${id}-helper` : undefined;
 
-    const describedBy =
-      [errorId, helperTextId].filter(Boolean).join(" ") || undefined;
+    const describedBy = [errorId, helperTextId].filter(Boolean).join(' ') || undefined;
 
     useEffect(() => {
       if (checkboxRef.current) {
@@ -53,15 +53,11 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       className,
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
-    const labelClasses = [
-      styles.label,
-      disabled && styles.disabled,
-      required && styles.required,
-    ]
+    const labelClasses = [styles.label, disabled && styles.disabled, required && styles.required]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
     return (
       <div className={styles.checkboxWrapper}>
@@ -76,7 +72,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             aria-invalid={error ? true : undefined}
             aria-describedby={describedBy}
             aria-required={required || undefined}
-            aria-checked={indeterminate ? "mixed" : undefined}
+            aria-checked={indeterminate ? 'mixed' : undefined}
             {...props}
           />
 
@@ -84,7 +80,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             {label}
             {required && (
               <span className={styles.requiredIndicator} aria-label="required">
-                {" "}
+                {' '}
                 *
               </span>
             )}
@@ -107,4 +103,4 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   }
 );
 
-Checkbox.displayName = "Checkbox";
+Checkbox.displayName = 'Checkbox';

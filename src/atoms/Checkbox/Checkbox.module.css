@@ -35,7 +35,7 @@
 }
 
 .checkbox:checked::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0.3rem;
   top: 0.05rem;
@@ -52,7 +52,7 @@
 }
 
 .checkbox.indeterminate::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   top: 50%;

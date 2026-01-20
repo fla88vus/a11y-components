@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Input } from "./Input";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Input } from './Input';
 
 const meta: Meta<typeof Input> = {
-  title: "Atoms/Input",
+  title: 'Atoms/Input',
   component: Input,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
     docs: {
       description: {
         component: `
@@ -48,45 +48,45 @@ A fully accessible input component following WCAG 2.1 AA/AAA standards.
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     label: {
-      control: "text",
-      description: "Input label (required for accessibility)",
+      control: 'text',
+      description: 'Input label (required for accessibility)',
     },
     type: {
-      control: "select",
-      options: ["text", "email", "password", "tel", "url", "search", "number"],
-      description: "Input type",
+      control: 'select',
+      options: ['text', 'email', 'password', 'tel', 'url', 'search', 'number'],
+      description: 'Input type',
     },
     size: {
-      control: "select",
-      options: ["small", "medium", "large"],
-      description: "Input size",
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Input size',
     },
     error: {
-      control: "text",
-      description: "Error message",
+      control: 'text',
+      description: 'Error message',
     },
     helperText: {
-      control: "text",
-      description: "Helper text",
+      control: 'text',
+      description: 'Helper text',
     },
     disabled: {
-      control: "boolean",
-      description: "Disabled state",
+      control: 'boolean',
+      description: 'Disabled state',
     },
     required: {
-      control: "boolean",
-      description: "Required field",
+      control: 'boolean',
+      description: 'Required field',
     },
     fullWidth: {
-      control: "boolean",
-      description: "Full width input",
+      control: 'boolean',
+      description: 'Full width input',
     },
     hideLabel: {
-      control: "boolean",
-      description: "Hide label visually (still accessible)",
+      control: 'boolean',
+      description: 'Hide label visually (still accessible)',
     },
   },
 };
@@ -97,167 +97,167 @@ type Story = StoryObj<typeof Input>;
 // Basic variants
 export const Default: Story = {
   args: {
-    label: "Email",
-    type: "email",
-    placeholder: "Enter your email",
+    label: 'Email',
+    type: 'email',
+    placeholder: 'Enter your email',
   },
 };
 
 export const WithValue: Story = {
   args: {
-    label: "Username",
-    defaultValue: "john.doe",
+    label: 'Username',
+    defaultValue: 'john.doe',
   },
 };
 
 export const WithHelperText: Story = {
   args: {
-    label: "Password",
-    type: "password",
-    helperText: "Must be at least 8 characters",
+    label: 'Password',
+    type: 'password',
+    helperText: 'Must be at least 8 characters',
   },
 };
 
 export const WithError: Story = {
   args: {
-    label: "Email",
-    type: "email",
-    error: "Please enter a valid email address",
-    defaultValue: "invalid-email",
+    label: 'Email',
+    type: 'email',
+    error: 'Please enter a valid email address',
+    defaultValue: 'invalid-email',
   },
 };
 
 export const Required: Story = {
   args: {
-    label: "Email",
-    type: "email",
+    label: 'Email',
+    type: 'email',
     required: true,
-    helperText: "This field is required",
+    helperText: 'This field is required',
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: "Email",
+    label: 'Email',
     disabled: true,
-    defaultValue: "disabled@example.com",
+    defaultValue: 'disabled@example.com',
   },
 };
 
 // Size variants
 export const Small: Story = {
   args: {
-    label: "Small Input",
-    size: "small",
+    label: 'Small Input',
+    size: 'small',
   },
 };
 
 export const Medium: Story = {
   args: {
-    label: "Medium Input",
-    size: "medium",
+    label: 'Medium Input',
+    size: 'medium',
   },
 };
 
 export const Large: Story = {
   args: {
-    label: "Large Input",
-    size: "large",
+    label: 'Large Input',
+    size: 'large',
   },
 };
 
 // Layout variants
 export const FullWidth: Story = {
   args: {
-    label: "Full Width Input",
+    label: 'Full Width Input',
     fullWidth: true,
-    placeholder: "This input spans the full width",
+    placeholder: 'This input spans the full width',
   },
 };
 
 export const HiddenLabel: Story = {
   args: {
-    label: "Search",
+    label: 'Search',
     hideLabel: true,
-    placeholder: "Search...",
-    type: "search",
+    placeholder: 'Search...',
+    type: 'search',
   },
 };
 
 // Type variants
 export const EmailInput: Story = {
   args: {
-    label: "Email Address",
-    type: "email",
-    placeholder: "you@example.com",
+    label: 'Email Address',
+    type: 'email',
+    placeholder: 'you@example.com',
   },
 };
 
 export const PasswordInput: Story = {
   args: {
-    label: "Password",
-    type: "password",
-    helperText: "8-20 characters, including letters and numbers",
+    label: 'Password',
+    type: 'password',
+    helperText: '8-20 characters, including letters and numbers',
   },
 };
 
 export const TelInput: Story = {
   args: {
-    label: "Phone Number",
-    type: "tel",
-    placeholder: "+1 (555) 000-0000",
+    label: 'Phone Number',
+    type: 'tel',
+    placeholder: '+1 (555) 000-0000',
   },
 };
 
 export const URLInput: Story = {
   args: {
-    label: "Website",
-    type: "url",
-    placeholder: "https://example.com",
+    label: 'Website',
+    type: 'url',
+    placeholder: 'https://example.com',
   },
 };
 
 export const SearchInput: Story = {
   args: {
-    label: "Search",
-    type: "search",
-    placeholder: "Search...",
+    label: 'Search',
+    type: 'search',
+    placeholder: 'Search...',
   },
 };
 
 export const NumberInput: Story = {
   args: {
-    label: "Age",
-    type: "number",
-    placeholder: "Enter your age",
+    label: 'Age',
+    type: 'number',
+    placeholder: 'Enter your age',
   },
 };
 
 // Combined states
 export const RequiredWithError: Story = {
   args: {
-    label: "Email",
-    type: "email",
+    label: 'Email',
+    type: 'email',
     required: true,
-    error: "This field is required",
+    error: 'This field is required',
   },
 };
 
 export const SmallWithError: Story = {
   args: {
-    label: "Username",
-    size: "small",
-    error: "Username already taken",
-    defaultValue: "admin",
+    label: 'Username',
+    size: 'small',
+    error: 'Username already taken',
+    defaultValue: 'admin',
   },
 };
 
 export const LargeRequired: Story = {
   args: {
-    label: "Full Name",
-    size: "large",
+    label: 'Full Name',
+    size: 'large',
     required: true,
-    helperText: "Enter your first and last name",
+    helperText: 'Enter your first and last name',
   },
 };
 
@@ -266,25 +266,15 @@ export const FormExample: Story = {
   render: () => (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        maxWidth: "400px",
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        maxWidth: '400px',
       }}
     >
       <Input label="Full Name" required placeholder="John Doe" />
-      <Input
-        label="Email"
-        type="email"
-        required
-        helperText="We'll never share your email"
-      />
-      <Input
-        label="Password"
-        type="password"
-        required
-        helperText="At least 8 characters"
-      />
+      <Input label="Email" type="email" required helperText="We'll never share your email" />
+      <Input label="Password" type="password" required helperText="At least 8 characters" />
       <Input label="Phone" type="tel" placeholder="+1 (555) 000-0000" />
       <Input label="Website" type="url" placeholder="https://example.com" />
     </div>
@@ -296,10 +286,10 @@ export const AllSizes: Story = {
   render: () => (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        maxWidth: "400px",
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        maxWidth: '400px',
       }}
     >
       <Input label="Small" size="small" defaultValue="Small input" />
@@ -314,10 +304,10 @@ export const StateShowcase: Story = {
   render: () => (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        maxWidth: "400px",
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        maxWidth: '400px',
       }}
     >
       <Input label="Default" placeholder="Enter text..." />
@@ -333,21 +323,21 @@ export const StateShowcase: Story = {
 
 // Accessibility examples
 export const AccessibilityShowcase: Story = {
-  name: "🔍 Accessibility Examples",
+  name: '🔍 Accessibility Examples',
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div>
         <h3>✅ Proper Label Association</h3>
         <p>Labels are correctly associated with inputs using htmlFor and id</p>
         <Input label="Email Address" type="email" />
       </div>
-      
+
       <div>
         <h3>✅ Error State with ARIA</h3>
         <p>Errors use role="alert" and aria-describedby for screen readers</p>
-        <Input 
-          label="Password" 
-          type="password" 
+        <Input
+          label="Password"
+          type="password"
           error="Password must be at least 8 characters"
           defaultValue="123"
         />
@@ -356,11 +346,7 @@ export const AccessibilityShowcase: Story = {
       <div>
         <h3>✅ Helper Text for Context</h3>
         <p>Helper text provides additional context via aria-describedby</p>
-        <Input 
-          label="Phone Number" 
-          type="tel" 
-          helperText="Format: +1 (555) 123-4567"
-        />
+        <Input label="Phone Number" type="tel" helperText="Format: +1 (555) 123-4567" />
       </div>
 
       <div>
@@ -372,23 +358,18 @@ export const AccessibilityShowcase: Story = {
       <div>
         <h3>✅ Visually Hidden Labels</h3>
         <p>Labels hidden visually but available to screen readers</p>
-        <Input 
-          label="Search products" 
-          type="search"
-          hideLabel 
-          placeholder="🔍 Search..." 
-        />
+        <Input label="Search products" type="search" hideLabel placeholder="🔍 Search..." />
       </div>
 
       <div>
         <h3>✅ Keyboard Navigation</h3>
         <p>All inputs are keyboard accessible with visible focus indicators</p>
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div style={{ display: 'flex', gap: '1rem' }}>
           <Input label="First" />
           <Input label="Second" />
           <Input label="Third" />
         </div>
-        <p style={{ fontSize: "0.875rem", marginTop: "0.5rem", color: "#6b7280" }}>
+        <p style={{ fontSize: '0.875rem', marginTop: '0.5rem', color: '#6b7280' }}>
           Tab through these inputs to see focus indicators
         </p>
       </div>
@@ -418,13 +399,13 @@ Try navigating this example with:
 
 // WCAG Testing Examples
 export const WCAGTesting: Story = {
-  name: "🧪 WCAG Testing Guide",
+  name: '🧪 WCAG Testing Guide',
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div>
         <h3>Color Contrast Testing</h3>
         <p>All colors meet WCAG AA contrast requirements (4.5:1 minimum)</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Input label="Normal Text" defaultValue="Text: 14.68:1 contrast ✅" />
           <Input label="Helper Text" helperText="Helper text: 4.83:1 contrast ✅" />
           <Input label="Error State" error="Error text: 4.83:1 contrast ✅" />
@@ -435,7 +416,7 @@ export const WCAGTesting: Story = {
         <h3>Focus Testing</h3>
         <p>Focus indicators meet WCAG 2.4.7 requirements</p>
         <Input label="Click or Tab here" placeholder="Focus visible with outline + shadow" />
-        <p style={{ fontSize: "0.875rem", marginTop: "0.5rem", color: "#6b7280" }}>
+        <p style={{ fontSize: '0.875rem', marginTop: '0.5rem', color: '#6b7280' }}>
           Focus indicators use both outline and box-shadow for maximum visibility
         </p>
       </div>
@@ -443,18 +424,25 @@ export const WCAGTesting: Story = {
       <div>
         <h3>Screen Reader Testing</h3>
         <p>Test with your preferred screen reader:</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          <Input 
-            label="Complete Form Field" 
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <Input
+            label="Complete Form Field"
             required
             helperText="This field demonstrates full accessibility"
             placeholder="Try with screen reader"
           />
         </div>
-        <details style={{ marginTop: "1rem", fontSize: "0.875rem" }}>
+        <details style={{ marginTop: '1rem', fontSize: '0.875rem' }}>
           <summary>Screen Reader Announcement Example</summary>
-          <pre style={{ background: "#f3f4f6", padding: "1rem", borderRadius: "0.375rem", marginTop: "0.5rem" }}>
-{`"Complete Form Field, required, edit text
+          <pre
+            style={{
+              background: '#f3f4f6',
+              padding: '1rem',
+              borderRadius: '0.375rem',
+              marginTop: '0.5rem',
+            }}
+          >
+            {`"Complete Form Field, required, edit text
 This field demonstrates full accessibility
 Try with screen reader"`}
           </pre>

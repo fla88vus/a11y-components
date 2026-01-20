@@ -1,13 +1,13 @@
 // src/atoms/Checkbox/Checkbox.stories.tsx
-import type { Meta, StoryObj } from "@storybook/react";
-import { Checkbox } from "./Checkbox";
-import React from "react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Checkbox } from './Checkbox';
+import React from 'react';
 
 const meta: Meta<typeof Checkbox> = {
-  title: "Atoms/Checkbox",
+  title: 'Atoms/Checkbox',
   component: Checkbox,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
     docs: {
       description: {
         component: `
@@ -50,36 +50,36 @@ Un componente checkbox completamente accessibile che segue gli standard WCAG 2.1
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     label: {
-      control: "text",
-      description: "Etichetta checkbox (obbligatoria per accessibilità)",
+      control: 'text',
+      description: 'Etichetta checkbox (obbligatoria per accessibilità)',
     },
     size: {
-      control: "select",
-      options: ["small", "medium", "large"],
-      description: "Dimensione checkbox",
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Dimensione checkbox',
     },
     error: {
-      control: "text",
-      description: "Messaggio di errore",
+      control: 'text',
+      description: 'Messaggio di errore',
     },
     helperText: {
-      control: "text",
-      description: "Testo di aiuto",
+      control: 'text',
+      description: 'Testo di aiuto',
     },
     disabled: {
-      control: "boolean",
-      description: "Stato disabilitato",
+      control: 'boolean',
+      description: 'Stato disabilitato',
     },
     required: {
-      control: "boolean",
-      description: "Campo obbligatorio",
+      control: 'boolean',
+      description: 'Campo obbligatorio',
     },
     checked: {
-      control: "boolean",
-      description: "Stato checked",
+      control: 'boolean',
+      description: 'Stato checked',
     },
   },
 };
@@ -90,49 +90,49 @@ type Story = StoryObj<typeof Checkbox>;
 // Basic variants
 export const Default: Story = {
   args: {
-    label: "Accetto i termini e condizioni",
+    label: 'Accetto i termini e condizioni',
   },
 };
 
 export const Checked: Story = {
   args: {
-    label: "Newsletter subscription",
+    label: 'Newsletter subscription',
     checked: true,
   },
 };
 
 export const WithHelperText: Story = {
   args: {
-    label: "Ricordami",
-    helperText: "Rimarrai connesso per 30 giorni",
+    label: 'Ricordami',
+    helperText: 'Rimarrai connesso per 30 giorni',
   },
 };
 
 export const WithError: Story = {
   args: {
-    label: "Accetto la privacy policy",
-    error: "Devi accettare per continuare",
+    label: 'Accetto la privacy policy',
+    error: 'Devi accettare per continuare',
   },
 };
 
 export const Required: Story = {
   args: {
-    label: "Accetto i termini obbligatori",
+    label: 'Accetto i termini obbligatori',
     required: true,
-    helperText: "Questo campo è obbligatorio",
+    helperText: 'Questo campo è obbligatorio',
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: "Opzione non disponibile",
+    label: 'Opzione non disponibile',
     disabled: true,
   },
 };
 
 export const DisabledChecked: Story = {
   args: {
-    label: "Opzione preselezionata",
+    label: 'Opzione preselezionata',
     disabled: true,
     checked: true,
   },
@@ -140,71 +140,65 @@ export const DisabledChecked: Story = {
 
 export const Small: Story = {
   args: {
-    label: "Checkbox piccola",
-    size: "small",
+    label: 'Checkbox piccola',
+    size: 'small',
   },
 };
 
 export const Medium: Story = {
   args: {
-    label: "Checkbox media",
-    size: "medium",
+    label: 'Checkbox media',
+    size: 'medium',
   },
 };
 
 export const Large: Story = {
   args: {
-    label: "Checkbox grande",
-    size: "large",
+    label: 'Checkbox grande',
+    size: 'large',
   },
 };
 
 export const RequiredWithError: Story = {
   args: {
-    label: "Accetto la privacy policy",
+    label: 'Accetto la privacy policy',
     required: true,
-    error: "Devi accettare per continuare",
+    error: 'Devi accettare per continuare',
   },
 };
 
 export const SmallWithError: Story = {
   args: {
-    label: "Sottoscrivi newsletter",
-    size: "small",
-    error: "Email non valida",
+    label: 'Sottoscrivi newsletter',
+    size: 'small',
+    error: 'Email non valida',
   },
 };
 
 export const LargeRequired: Story = {
   args: {
-    label: "Accetto tutti i termini",
-    size: "large",
+    label: 'Accetto tutti i termini',
+    size: 'large',
     required: true,
-    helperText: "Leggi attentamente prima di accettare",
+    helperText: 'Leggi attentamente prima di accettare',
   },
 };
 
 export const FormExample: Story = {
-  name: "📋 Esempio Form",
+  name: '📋 Esempio Form',
   render: () => (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        maxWidth: "400px",
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        maxWidth: '400px',
       }}
     >
-      <h3 style={{ marginBottom: "0.5rem" }}>Preferenze Account</h3>
+      <h3 style={{ marginBottom: '0.5rem' }}>Preferenze Account</h3>
       <Checkbox label="Ricordami" helperText="Rimani connesso per 30 giorni" />
-      <Checkbox
-        label="Ricevi newsletter"
-        helperText="Aggiornamenti settimanali via email"
-      />
-      <Checkbox
-        label="Notifiche push"
-        helperText="Ricevi notifiche sul dispositivo"
-      />
+      <Checkbox label="Ricevi newsletter" helperText="Aggiornamenti settimanali via email" />
+      <Checkbox label="Notifiche push" helperText="Ricevi notifiche sul dispositivo" />
       <Checkbox
         label="Accetto i termini e condizioni"
         required
@@ -220,14 +214,14 @@ export const FormExample: Story = {
 };
 
 export const AllSizes: Story = {
-  name: "📏 Tutte le Dimensioni",
+  name: '📏 Tutte le Dimensioni',
   render: () => (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1.5rem",
-        maxWidth: "400px",
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem',
+        maxWidth: '400px',
       }}
     >
       <Checkbox label="Piccola - Per interfacce compatte" size="small" />
@@ -238,14 +232,14 @@ export const AllSizes: Story = {
 };
 
 export const StateShowcase: Story = {
-  name: "🎨 Showcase Stati",
+  name: '🎨 Showcase Stati',
   render: () => (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        maxWidth: "400px",
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        maxWidth: '400px',
       }}
     >
       <Checkbox label="Default (non selezionato)" />
@@ -260,9 +254,9 @@ export const StateShowcase: Story = {
 };
 
 export const AccessibilityShowcase: Story = {
-  name: "🔍 Esempi Accessibilità",
+  name: '🔍 Esempi Accessibilità',
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div>
         <h3>✅ Corretta Associazione Label</h3>
         <p>Le label sono correttamente associate tramite htmlFor e id</p>
@@ -271,48 +265,35 @@ export const AccessibilityShowcase: Story = {
 
       <div>
         <h3>✅ Stato Errore con ARIA</h3>
-        <p>
-          Gli errori usano role="alert" e aria-describedby per screen reader
-        </p>
-        <Checkbox
-          label="Accetto la privacy policy"
-          error="Devi accettare per continuare"
-        />
+        <p>Gli errori usano role="alert" e aria-describedby per screen reader</p>
+        <Checkbox label="Accetto la privacy policy" error="Devi accettare per continuare" />
       </div>
 
       <div>
         <h3>✅ Testo Helper per Contesto</h3>
         <p>Il testo helper fornisce contesto aggiuntivo via aria-describedby</p>
-        <Checkbox
-          label="Ricordami"
-          helperText="Rimarrai connesso per 30 giorni"
-        />
+        <Checkbox label="Ricordami" helperText="Rimarrai connesso per 30 giorni" />
       </div>
 
       <div>
         <h3>✅ Indicazione Campo Obbligatorio</h3>
-        <p>
-          I campi obbligatori usano sia l'asterisco visivo (*) che aria-required
-        </p>
+        <p>I campi obbligatori usano sia l'asterisco visivo (*) che aria-required</p>
         <Checkbox label="Accetto i termini obbligatori" required />
       </div>
 
       <div>
         <h3>✅ Navigazione da Tastiera</h3>
-        <p>
-          Tutti i checkbox sono accessibili da tastiera con indicatori di focus
-          visibili
-        </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <p>Tutti i checkbox sono accessibili da tastiera con indicatori di focus visibili</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Checkbox label="Primo checkbox" />
           <Checkbox label="Secondo checkbox" />
           <Checkbox label="Terzo checkbox" />
         </div>
         <p
           style={{
-            fontSize: "0.875rem",
-            marginTop: "0.5rem",
-            color: "#6b7280",
+            fontSize: '0.875rem',
+            marginTop: '0.5rem',
+            color: '#6b7280',
           }}
         >
           Usa Tab per navigare e Spazio per selezionare/deselezionare
@@ -322,7 +303,7 @@ export const AccessibilityShowcase: Story = {
       <div>
         <h3>✅ Stato Checked con ARIA</h3>
         <p>Lo stato checked è annunciato correttamente agli screen reader</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Checkbox label="Non selezionato (aria-checked='false')" />
           <Checkbox label="Selezionato (aria-checked='true')" checked />
         </div>
@@ -353,25 +334,16 @@ Prova a navigare questo esempio con:
 };
 
 export const WCAGTesting: Story = {
-  name: "🧪 Guida Testing WCAG",
+  name: '🧪 Guida Testing WCAG',
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div>
         <h3>Test Contrasto Colori</h3>
-        <p>
-          Tutti i colori rispettano i requisiti WCAG AA di contrasto (minimo
-          4.5:1)
-        </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <p>Tutti i colori rispettano i requisiti WCAG AA di contrasto (minimo 4.5:1)</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Checkbox label="Testo normale: contrasto 14.68:1 ✅" />
-          <Checkbox
-            label="Testo helper"
-            helperText="Testo helper: contrasto 4.83:1 ✅"
-          />
-          <Checkbox
-            label="Stato errore"
-            error="Testo errore: contrasto 4.52:1 ✅"
-          />
+          <Checkbox label="Testo helper" helperText="Testo helper: contrasto 4.83:1 ✅" />
+          <Checkbox label="Stato errore" error="Testo errore: contrasto 4.52:1 ✅" />
         </div>
       </div>
 
@@ -381,34 +353,33 @@ export const WCAGTesting: Story = {
         <Checkbox label="Clicca o usa Tab qui" />
         <p
           style={{
-            fontSize: "0.875rem",
-            marginTop: "0.5rem",
-            color: "#6b7280",
+            fontSize: '0.875rem',
+            marginTop: '0.5rem',
+            color: '#6b7280',
           }}
         >
-          Gli indicatori di focus usano sia outline che box-shadow per massima
-          visibilità
+          Gli indicatori di focus usano sia outline che box-shadow per massima visibilità
         </p>
       </div>
 
       <div>
         <h3>Test Screen Reader</h3>
         <p>Testa con il tuo screen reader preferito:</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Checkbox
             label="Campo checkbox completo"
             required
             helperText="Questo campo dimostra piena accessibilità"
           />
         </div>
-        <details style={{ marginTop: "1rem", fontSize: "0.875rem" }}>
+        <details style={{ marginTop: '1rem', fontSize: '0.875rem' }}>
           <summary>Esempio Annuncio Screen Reader</summary>
           <pre
             style={{
-              background: "#f3f4f6",
-              padding: "1rem",
-              borderRadius: "0.375rem",
-              marginTop: "0.5rem",
+              background: '#f3f4f6',
+              padding: '1rem',
+              borderRadius: '0.375rem',
+              marginTop: '0.5rem',
             }}
           >
             {`"Campo checkbox completo, obbligatorio, 
@@ -421,16 +392,16 @@ Questo campo dimostra piena accessibilità"`}
       <div>
         <h3>Test Interazione Tastiera</h3>
         <p>Tutti gli stati sono gestibili da tastiera:</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Checkbox label="Tab per focalizzare" />
           <Checkbox label="Spazio per selezionare/deselezionare" />
           <Checkbox label="Enter invia form (se in form)" />
         </div>
         <p
           style={{
-            fontSize: "0.875rem",
-            marginTop: "0.5rem",
-            color: "#6b7280",
+            fontSize: '0.875rem',
+            marginTop: '0.5rem',
+            color: '#6b7280',
           }}
         >
           ⌨️ Navigazione completa senza mouse
@@ -478,7 +449,7 @@ Questo componente è stato testato accuratamente per la conformità WCAG:
 
 // Interactive example with state management
 export const InteractiveExample: Story = {
-  name: "🎮 Esempio Interattivo",
+  name: '🎮 Esempio Interattivo',
   render: function InteractiveCheckboxes() {
     const [checks, setChecks] = React.useState({
       terms: false,
@@ -486,69 +457,67 @@ export const InteractiveExample: Story = {
       newsletter: false,
     });
 
-    const handleChange =
-      (key: keyof typeof checks) =>
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        setChecks((prev) => ({ ...prev, [key]: e.target.checked }));
-      };
+    const handleChange = (key: keyof typeof checks) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      setChecks((prev) => ({ ...prev, [key]: e.target.checked }));
+    };
 
     const allChecked = checks.terms && checks.privacy;
 
     return (
-      <div style={{ maxWidth: "400px" }}>
+      <div style={{ maxWidth: '400px' }}>
         <h3>Crea Account</h3>
-        <p style={{ marginBottom: "1.5rem", color: "#6b7280" }}>
+        <p style={{ marginBottom: '1.5rem', color: '#6b7280' }}>
           Completa le seguenti opzioni per creare il tuo account
         </p>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Checkbox
             label="Accetto i termini e condizioni"
             checked={checks.terms}
-            onChange={handleChange("terms")}
+            onChange={handleChange('terms')}
             required
-            error={!checks.terms ? "Obbligatorio" : undefined}
+            error={!checks.terms ? 'Obbligatorio' : undefined}
           />
 
           <Checkbox
             label="Accetto la privacy policy"
             checked={checks.privacy}
-            onChange={handleChange("privacy")}
+            onChange={handleChange('privacy')}
             required
-            error={!checks.privacy ? "Obbligatorio" : undefined}
+            error={!checks.privacy ? 'Obbligatorio' : undefined}
           />
 
           <Checkbox
             label="Voglio ricevere la newsletter"
             checked={checks.newsletter}
-            onChange={handleChange("newsletter")}
+            onChange={handleChange('newsletter')}
             helperText="Facoltativo - Ricevi aggiornamenti settimanali"
           />
         </div>
 
         <div
           style={{
-            marginTop: "1.5rem",
-            padding: "1rem",
-            background: allChecked ? "#d1fae5" : "#fee2e2",
-            borderRadius: "0.375rem",
+            marginTop: '1.5rem',
+            padding: '1rem',
+            background: allChecked ? '#d1fae5' : '#fee2e2',
+            borderRadius: '0.375rem',
           }}
         >
           <p style={{ margin: 0, fontWeight: 500 }}>
             {allChecked
-              ? "✅ Puoi procedere con la registrazione"
-              : "❌ Accetta i termini obbligatori per continuare"}
+              ? '✅ Puoi procedere con la registrazione'
+              : '❌ Accetta i termini obbligatori per continuare'}
           </p>
         </div>
 
-        <details style={{ marginTop: "1rem", fontSize: "0.875rem" }}>
+        <details style={{ marginTop: '1rem', fontSize: '0.875rem' }}>
           <summary>Stato attuale</summary>
           <pre
             style={{
-              background: "#f3f4f6",
-              padding: "1rem",
-              borderRadius: "0.375rem",
-              marginTop: "0.5rem",
+              background: '#f3f4f6',
+              padding: '1rem',
+              borderRadius: '0.375rem',
+              marginTop: '0.5rem',
             }}
           >
             {JSON.stringify(checks, null, 2)}
@@ -577,7 +546,7 @@ Il codice mostra un pattern comune per form con validazione real-time.
 
 export const Indeterminate: Story = {
   args: {
-    label: "Select all items",
+    label: 'Select all items',
     indeterminate: true,
   },
   parameters: {
@@ -604,23 +573,23 @@ quando solo alcuni elementi figli sono selezionati.
 
 export const IndeterminateSmall: Story = {
   args: {
-    label: "Select all (piccola)",
+    label: 'Select all (piccola)',
     indeterminate: true,
-    size: "small",
+    size: 'small',
   },
 };
 
 export const IndeterminateLarge: Story = {
   args: {
-    label: "Select all (grande)",
+    label: 'Select all (grande)',
     indeterminate: true,
-    size: "large",
+    size: 'large',
   },
 };
 
 export const IndeterminateDisabled: Story = {
   args: {
-    label: "Selezione parzialmente completata",
+    label: 'Selezione parzialmente completata',
     indeterminate: true,
     disabled: true,
   },
@@ -628,13 +597,13 @@ export const IndeterminateDisabled: Story = {
 
 // Interactive indeterminate example
 export const IndeterminateInteractive: Story = {
-  name: "🎮 Indeterminate - Select All",
+  name: '🎮 Indeterminate - Select All',
   render: function IndeterminateExample() {
     const [items, setItems] = React.useState([
-      { id: 1, label: "Item 1", checked: true },
-      { id: 2, label: "Item 2", checked: false },
-      { id: 3, label: "Item 3", checked: true },
-      { id: 4, label: "Item 4", checked: false },
+      { id: 1, label: 'Item 1', checked: true },
+      { id: 2, label: 'Item 2', checked: false },
+      { id: 3, label: 'Item 3', checked: true },
+      { id: 4, label: 'Item 4', checked: false },
     ]);
 
     const allChecked = items.every((item) => item.checked);
@@ -652,29 +621,25 @@ export const IndeterminateInteractive: Story = {
     };
 
     const handleItemChange = (id: number) => {
-      setItems(
-        items.map((item) =>
-          item.id === id ? { ...item, checked: !item.checked } : item
-        )
-      );
+      setItems(items.map((item) => (item.id === id ? { ...item, checked: !item.checked } : item)));
     };
 
     return (
-      <div style={{ maxWidth: "400px" }}>
+      <div style={{ maxWidth: '400px' }}>
         <h3>Select All con Indeterminate State</h3>
-        <p style={{ marginBottom: "1rem", color: "#6b7280" }}>
-          Questo esempio mostra l'uso corretto dello stato indeterminate per un
-          checkbox "Select All"
+        <p style={{ marginBottom: '1rem', color: '#6b7280' }}>
+          Questo esempio mostra l'uso corretto dello stato indeterminate per un checkbox "Select
+          All"
         </p>
 
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-            padding: "1rem",
-            background: "#f9fafb",
-            borderRadius: "0.5rem",
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem',
+            padding: '1rem',
+            background: '#f9fafb',
+            borderRadius: '0.5rem',
           }}
         >
           <Checkbox
@@ -686,12 +651,12 @@ export const IndeterminateInteractive: Story = {
 
           <div
             style={{
-              marginLeft: "2rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
-              paddingTop: "0.5rem",
-              borderTop: "1px solid #e5e7eb",
+              marginLeft: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.75rem',
+              paddingTop: '0.5rem',
+              borderTop: '1px solid #e5e7eb',
             }}
           >
             {items.map((item) => (
@@ -707,40 +672,33 @@ export const IndeterminateInteractive: Story = {
 
         <div
           style={{
-            marginTop: "1rem",
-            padding: "1rem",
-            background: "#f3f4f6",
-            borderRadius: "0.375rem",
-            fontSize: "0.875rem",
+            marginTop: '1rem',
+            padding: '1rem',
+            background: '#f3f4f6',
+            borderRadius: '0.375rem',
+            fontSize: '0.875rem',
           }}
         >
-          <p style={{ margin: 0, fontWeight: 500, marginBottom: "0.5rem" }}>
-            Stato corrente:
-          </p>
-          <ul style={{ margin: 0, paddingLeft: "1.5rem" }}>
+          <p style={{ margin: 0, fontWeight: 500, marginBottom: '0.5rem' }}>Stato corrente:</p>
+          <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+            <li>Tutti selezionati: {allChecked ? '✅ Sì' : '❌ No'} (checked)</li>
             <li>
-              Tutti selezionati: {allChecked ? "✅ Sì" : "❌ No"} (checked)
+              Alcuni selezionati: {selectAllIndeterminate ? '✅ Sì' : '❌ No'} (indeterminate)
             </li>
-            <li>
-              Alcuni selezionati: {selectAllIndeterminate ? "✅ Sì" : "❌ No"}{" "}
-              (indeterminate)
-            </li>
-            <li>
-              Nessuno selezionato: {noneChecked ? "✅ Sì" : "❌ No"} (unchecked)
-            </li>
+            <li>Nessuno selezionato: {noneChecked ? '✅ Sì' : '❌ No'} (unchecked)</li>
           </ul>
         </div>
 
-        <details style={{ marginTop: "1rem", fontSize: "0.875rem" }}>
+        <details style={{ marginTop: '1rem', fontSize: '0.875rem' }}>
           <summary>Implementazione</summary>
           <pre
             style={{
-              background: "#1f2937",
-              color: "#f9fafb",
-              padding: "1rem",
-              borderRadius: "0.375rem",
-              marginTop: "0.5rem",
-              overflow: "auto",
+              background: '#1f2937',
+              color: '#f9fafb',
+              padding: '1rem',
+              borderRadius: '0.375rem',
+              marginTop: '0.5rem',
+              overflow: 'auto',
             }}
           >
             {`const allChecked = items.every(item => item.checked);
@@ -795,22 +753,22 @@ const indeterminate = someChecked && !allChecked;
 
 // Hierarchical tree example
 export const IndeterminateHierarchy: Story = {
-  name: "🌳 Indeterminate - Tree View",
+  name: '🌳 Indeterminate - Tree View',
   render: function HierarchyExample() {
     const [tree, setTree] = React.useState({
       parent1: {
         checked: false,
         children: [
-          { id: "1-1", label: "Child 1.1", checked: false },
-          { id: "1-2", label: "Child 1.2", checked: true },
-          { id: "1-3", label: "Child 1.3", checked: false },
+          { id: '1-1', label: 'Child 1.1', checked: false },
+          { id: '1-2', label: 'Child 1.2', checked: true },
+          { id: '1-3', label: 'Child 1.3', checked: false },
         ],
       },
       parent2: {
         checked: false,
         children: [
-          { id: "2-1", label: "Child 2.1", checked: true },
-          { id: "2-2", label: "Child 2.2", checked: true },
+          { id: '2-1', label: 'Child 2.1', checked: true },
+          { id: '2-2', label: 'Child 2.2', checked: true },
         ],
       },
     });
@@ -840,10 +798,7 @@ export const IndeterminateHierarchy: Story = {
       }));
     };
 
-    const handleChildChange = (
-      parentKey: keyof typeof tree,
-      childId: string
-    ) => {
+    const handleChildChange = (parentKey: keyof typeof tree, childId: string) => {
       setTree((prev) => ({
         ...prev,
         [parentKey]: {
@@ -855,25 +810,24 @@ export const IndeterminateHierarchy: Story = {
       }));
     };
 
-    const parent1State = getParentState("parent1");
-    const parent2State = getParentState("parent2");
+    const parent1State = getParentState('parent1');
+    const parent2State = getParentState('parent2');
 
     return (
-      <div style={{ maxWidth: "500px" }}>
+      <div style={{ maxWidth: '500px' }}>
         <h3>Selezione Gerarchica (Tree View)</h3>
-        <p style={{ marginBottom: "1rem", color: "#6b7280" }}>
-          Esempio di checkbox indeterminate in una struttura ad albero con
-          parent-child
+        <p style={{ marginBottom: '1rem', color: '#6b7280' }}>
+          Esempio di checkbox indeterminate in una struttura ad albero con parent-child
         </p>
 
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.5rem",
-            padding: "1rem",
-            background: "#f9fafb",
-            borderRadius: "0.5rem",
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.5rem',
+            padding: '1rem',
+            background: '#f9fafb',
+            borderRadius: '0.5rem',
           }}
         >
           {/* Parent 1 */}
@@ -882,14 +836,14 @@ export const IndeterminateHierarchy: Story = {
               label="📁 Cartella 1"
               checked={parent1State.checked}
               indeterminate={parent1State.indeterminate}
-              onChange={() => handleParentChange("parent1")}
+              onChange={() => handleParentChange('parent1')}
             />
-            <div style={{ marginLeft: "2rem", marginTop: "0.5rem" }}>
+            <div style={{ marginLeft: '2rem', marginTop: '0.5rem' }}>
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.5rem",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem',
                 }}
               >
                 {tree.parent1.children.map((child) => (
@@ -897,7 +851,7 @@ export const IndeterminateHierarchy: Story = {
                     key={child.id}
                     label={`📄 ${child.label}`}
                     checked={child.checked}
-                    onChange={() => handleChildChange("parent1", child.id)}
+                    onChange={() => handleChildChange('parent1', child.id)}
                     size="small"
                   />
                 ))}
@@ -911,14 +865,14 @@ export const IndeterminateHierarchy: Story = {
               label="📁 Cartella 2"
               checked={parent2State.checked}
               indeterminate={parent2State.indeterminate}
-              onChange={() => handleParentChange("parent2")}
+              onChange={() => handleParentChange('parent2')}
             />
-            <div style={{ marginLeft: "2rem", marginTop: "0.5rem" }}>
+            <div style={{ marginLeft: '2rem', marginTop: '0.5rem' }}>
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.5rem",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem',
                 }}
               >
                 {tree.parent2.children.map((child) => (
@@ -926,7 +880,7 @@ export const IndeterminateHierarchy: Story = {
                     key={child.id}
                     label={`📄 ${child.label}`}
                     checked={child.checked}
-                    onChange={() => handleChildChange("parent2", child.id)}
+                    onChange={() => handleChildChange('parent2', child.id)}
                     size="small"
                   />
                 ))}
@@ -937,20 +891,19 @@ export const IndeterminateHierarchy: Story = {
 
         <div
           style={{
-            marginTop: "1rem",
-            padding: "0.75rem",
-            background: "#dbeafe",
-            borderRadius: "0.375rem",
-            fontSize: "0.875rem",
+            marginTop: '1rem',
+            padding: '0.75rem',
+            background: '#dbeafe',
+            borderRadius: '0.375rem',
+            fontSize: '0.875rem',
           }}
         >
           <p style={{ margin: 0, fontWeight: 500 }}>💡 Comportamento:</p>
-          <ul style={{ margin: "0.5rem 0 0", paddingLeft: "1.5rem" }}>
+          <ul style={{ margin: '0.5rem 0 0', paddingLeft: '1.5rem' }}>
             <li>Selezionare il parent seleziona tutti i figli</li>
             <li>Deselezionare il parent deseleziona tutti i figli</li>
             <li>
-              Stato indeterminate appare quando alcuni (ma non tutti) i figli
-              sono selezionati
+              Stato indeterminate appare quando alcuni (ma non tutti) i figli sono selezionati
             </li>
           </ul>
         </div>
@@ -990,9 +943,9 @@ const indeterminate = someChildrenChecked && !allChildrenChecked;
 
 // Comparison of all indeterminate sizes
 export const IndeterminateAllSizes: Story = {
-  name: "📏 Indeterminate - Tutte le Dimensioni",
+  name: '📏 Indeterminate - Tutte le Dimensioni',
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       <Checkbox label="Piccola - Indeterminate" size="small" indeterminate />
       <Checkbox label="Media - Indeterminate" size="medium" indeterminate />
       <Checkbox label="Grande - Indeterminate" size="large" indeterminate />
