@@ -22,10 +22,9 @@
     "build": "tsc && vite build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:unit": "vitest run --reporter=verbose \"src/atoms/**/*.utils.test.ts\"",
-    "test:component": "vitest run --reporter=verbose --run src/atoms/Input/Input.test.tsx src/atoms/Button/Button.test.tsx",
-    "test:a11y": "vitest run --reporter=verbose --run src/atoms/Input/Input.a11y.test.tsx src/atoms/Button/Button.a11y.test.tsx",
-    "test:contrast": "vitest run --reporter=verbose --run src/test/color-contrast.test.ts",
+    "test:unit": "vitest run --reporter=verbose src --exclude=\"src/**/*.a11y.test.tsx\"",
+    "test:a11y": "vitest run --reporter=verbose src/atoms/Button/Button.a11y.test.tsx src/atoms/Input/Input.a11y.test.tsx src/atoms/Checkbox/Checkbox.a11y.test.tsx src/atoms/Radio/Radio.a11y.test.tsx src/atoms/Icon/Icon.a11y.test.tsx",
+    "test:e2e": "playwright test tests/e2e",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "test:visual": "playwright test tests/visual",
@@ -35,9 +34,11 @@
     "test:visual:input": "playwright test tests/visual/Input.visual.test.ts",
     "test:visual:button:update": "playwright test tests/visual/Button.visual.test.ts --update-snapshots",
     "test:visual:input:update": "playwright test tests/visual/Input.visual.test.ts --update-snapshots",
-    "test:e2e": "playwright test tests/e2e",
     "test:e2e:button": "playwright test tests/e2e/Button.e2e.test.ts",
     "test:e2e:input": "playwright test tests/e2e/Input.e2e.test.ts",
+    "test:e2e:radio": "playwright test tests/e2e/Radio.e2e.test.ts",
+    "test:e2e:checkbox": "playwright test tests/e2e/Checkbox.e2e.test.ts",
+    "test:e2e:icon": "playwright test tests/e2e/Icon.e2e.test.ts",
     "test:e2e:ui": "playwright test tests/e2e --ui",
     "test:playwright": "playwright test",
     "storybook": "storybook dev -p 6006",
@@ -124,5 +125,8 @@
     "src/**/*.css": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "lucide-react": "^0.562.0"
   }
 }

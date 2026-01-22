@@ -110,6 +110,7 @@ export const Default: Story = {
     name: 'story-default',
     value: 'basic',
     label: 'Basic Plan',
+    defaultChecked: false,
   },
 };
 
@@ -138,6 +139,7 @@ export const Disabled: Story = {
     value: 'basic',
     label: 'Basic Plan',
     disabled: true,
+    defaultChecked: true,
   },
   parameters: {
     docs: {
@@ -353,23 +355,18 @@ export const RadioGroupDemo: Story = {
   },
 };
 
-export const MultipleGroups: Story = {
+export const MultipleGroups: StoryObj<Story> = {
   name: 'Multiple Independent Groups',
-  args: {
-    name: 'multiple-demo',
-    value: 'demo',
-    label: 'Demo',
-  },
   render: () => (
     <div style={{ display: 'flex', gap: '2rem' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>Plan</h3>
-        <Radio name="plan" value="basic" label="Basic" checked />
+        <Radio name="plan" value="basic" label="Basic" defaultChecked />
         <Radio name="plan" value="pro" label="Pro" />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>Billing</h3>
-        <Radio name="billing" value="monthly" label="Monthly" checked />
+        <Radio name="billing" value="monthly" label="Monthly" defaultChecked />
         <Radio name="billing" value="yearly" label="Yearly" />
       </div>
     </div>
@@ -384,13 +381,8 @@ export const MultipleGroups: Story = {
   },
 };
 
-export const RadioGroupWithValidation: Story = {
+export const RadioGroupWithValidation: StoryObj<Story> = {
   name: 'Radio Group + Validation',
-  args: {
-    name: 'validation-demo',
-    value: 'demo',
-    label: 'Demo',
-  },
   render: () => {
     const [selected, setSelected] = useState<string>('');
     const [error, setError] = useState<string>('');

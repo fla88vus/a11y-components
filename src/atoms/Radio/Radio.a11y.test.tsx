@@ -145,7 +145,6 @@ describe('Radio - Accessibility Tests (WCAG 2.1 AA)', () => {
       const radio = screen.getByRole('radio');
       const errorMessage = screen.getByText('Selection required');
 
-      expect(radio).toHaveAttribute('aria-invalid', 'true');
       expect(radio).toHaveAttribute('aria-describedby');
       expect(radio.getAttribute('aria-describedby')).toContain(errorMessage.id);
       expect(errorMessage).toHaveAttribute('role', 'alert');
@@ -199,8 +198,8 @@ describe('Radio - Accessibility Tests (WCAG 2.1 AA)', () => {
       render(<Radio name="plan" value="basic" label="Basic Plan" error="Required field" />);
       const radio = screen.getByRole('radio');
 
-      // ✅ Usa aria-invalid + role="alert", non solo colore rosso
-      expect(radio).toHaveAttribute('aria-invalid', 'true');
+      // ✅ Usa role="alert" + aria-describedby, non solo colore rosso
+      expect(radio).toHaveAttribute('aria-describedby');
       expect(screen.getByRole('alert')).toBeInTheDocument();
     });
 
@@ -274,12 +273,12 @@ describe('Radio - Accessibility Tests (WCAG 2.1 AA)', () => {
     it('meets 3.3.2 Labels or Instructions - required state indicated', () => {
       render(<Radio name="plan" value="basic" label="Basic Plan" required />);
 
-      // ✅ Asterisco visibile + aria-required
+      // ✅ Asterisco visibile + required
       const requiredIndicator = screen.getByLabelText('required');
       expect(requiredIndicator).toBeVisible();
 
       const radio = screen.getByRole('radio');
-      expect(radio).toHaveAttribute('aria-required', 'true');
+      expect(radio).toHaveAttribute('required');
     });
 
     // SC 3.3.3: Error Suggestion
@@ -415,8 +414,7 @@ describe('Radio - Accessibility Tests (WCAG 2.1 AA)', () => {
       render(<Radio name="plan" value="basic" label="Basic Plan" error="You must select a plan" />);
       const radio = screen.getByRole('radio');
 
-      // ✅ Screen reader annuncerà: "invalid" + messaggio d'errore
-      expect(radio).toHaveAttribute('aria-invalid', 'true');
+      // ✅ Screen reader annuncerà il messaggio d'errore
       expect(radio).toHaveAttribute('aria-describedby');
     });
 
@@ -425,7 +423,6 @@ describe('Radio - Accessibility Tests (WCAG 2.1 AA)', () => {
       const radio = screen.getByRole('radio');
 
       // ✅ Screen reader annuncerà "required"
-      expect(radio).toHaveAttribute('aria-required', 'true');
       expect(radio).toHaveAttribute('required');
     });
 

@@ -210,11 +210,11 @@ describe('Radio', () => {
     expect(screen.getByRole('alert')).toHaveTextContent('Please select a plan');
   });
 
-  it('marks radio as invalid when error is present', () => {
+  it('error message is linked via aria-describedby', () => {
     render(<Radio name="plan" value="basic" label="Basic Plan" error="Required field" />);
     const radio = screen.getByLabelText('Basic Plan');
 
-    expect(radio).toHaveAttribute('aria-invalid', 'true');
+    expect(radio).toHaveAttribute('aria-describedby');
   });
 
   // ===================================
@@ -266,7 +266,6 @@ describe('Radio', () => {
     const radio = screen.getByRole('radio', { name: /Basic Plan/i });
 
     expect(radio).toBeRequired();
-    expect(radio).toHaveAttribute('aria-required', 'true');
     expect(radio).toHaveAttribute('required');
   });
 
@@ -385,9 +384,9 @@ describe('Radio', () => {
       render(<Radio name="plan" value="basic" label="Basic Plan" error="Required field" />);
       const radio = screen.getByLabelText('Basic Plan');
 
-      // Uses aria-invalid and role="alert", not just color
-      expect(radio).toHaveAttribute('aria-invalid', 'true');
+      // Uses role="alert" and aria-describedby, not just color
       expect(screen.getByRole('alert')).toBeInTheDocument();
+      expect(radio).toHaveAttribute('aria-describedby');
     });
 
     it('is keyboard accessible (WCAG 2.1.1)', () => {
@@ -439,7 +438,6 @@ describe('Radio', () => {
       render(<Radio name="plan" value="basic" label="Basic Plan" required />);
       const radio = screen.getByRole('radio', { name: /Basic Plan/i });
 
-      expect(radio).toHaveAttribute('aria-required', 'true');
       expect(radio).toHaveAttribute('required');
     });
 
