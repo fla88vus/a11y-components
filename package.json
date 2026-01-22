@@ -48,6 +48,7 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
+    "prepublishOnly": "npm run typecheck && npm run build",
     "prepare": "husky"
   },
   "keywords": [
@@ -60,7 +61,7 @@
     "button",
     "typescript"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "Flavia",
   "license": "MIT",
   "repository": {
     "type": "git",
