@@ -10,3 +10,6 @@ export type { CheckboxProps } from './Checkbox';
 
 export { Radio } from './Radio';
 export type { RadioProps } from './Radio';
+
+export { Icon } from './Icon';
+export type { IconProps } from './Icon';
