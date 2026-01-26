@@ -116,6 +116,42 @@ npm run build
 npm run typecheck
 ```
 
+## Documentation & GitHub Pages Deploy
+
+This library includes a full documentation site built with [VitePress](https://vitepress.dev/).
+
+### Preview Locally
+
+```bash
+npm run docs:dev
+```
+Visit [http://localhost:5173](http://localhost:5173) (or the port shown in terminal).
+
+### Build Static Site
+
+```bash
+npm run docs:build
+```
+The static site will be generated in `docs/.vitepress/dist`.
+
+### Deploy on GitHub Pages
+
+Deployment is automated via GitHub Actions:
+- On every push to the `main` branch, the documentation is built and published to GitHub Pages.
+- The workflow is defined in `.github/workflows/deploy-docs.yml`.
+
+#### GitHub Pages URL
+
+The documentation will be available at:
+```
+https://<your-github-username>.github.io/a11y-components/
+```
+Replace `<your-github-username>` with your actual GitHub username.
+
+If you fork or rename the repo, update the `base` option in `docs/.vitepress/config.ts` accordingly.
+
+---
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.

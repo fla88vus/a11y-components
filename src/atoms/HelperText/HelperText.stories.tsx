@@ -25,13 +25,16 @@ export const Default: Story = {
 };
 
 export const WithInput: Story = {
-  render: () => (
+  args: {
+    children: "We'll never share your email with anyone else",
+  },
+  render: (args) => (
     <div>
       <label htmlFor="email" style={{ display: 'block', marginBottom: '0.25rem' }}>
         Email
       </label>
       <input id="email" type="email" aria-describedby="email-helper" style={{ display: 'block' }} />
-      <HelperText id="email-helper">We'll never share your email with anyone else</HelperText>
+      <HelperText id="email-helper">{args.children}</HelperText>
     </div>
   ),
 };

@@ -1,18 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
-import {
-  Check,
-  AlertCircle,
-  AlertTriangle,
-  Info,
-  Search,
-  X,
-  Home,
-  Settings,
-  User,
-  Mail,
-} from 'lucide-react';
+import { Check, AlertCircle, Info, Search, X, Home, Settings, User, Mail } from 'lucide-react';
 import { Icon } from './Icon';
 
 // Estendi expect con jest-axe matchers

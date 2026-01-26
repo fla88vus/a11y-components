@@ -24,7 +24,10 @@ export const Default: Story = {
 };
 
 export const WithInput: Story = {
-  render: () => (
+  args: {
+    children: 'This field is required',
+  },
+  render: (args) => (
     <div>
       <label htmlFor="email" style={{ display: 'block', marginBottom: '0.25rem' }}>
         Email
@@ -39,7 +42,7 @@ export const WithInput: Story = {
           borderColor: '#dc2626',
         }}
       />
-      <ErrorText id="email-error">Please enter a valid email address</ErrorText>
+      <ErrorText id="email-error">{args.children}</ErrorText>
     </div>
   ),
 };
