@@ -1,0 +1,14 @@
+.errorText {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #dc2626;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Icon support (optional) */
+.errorText::before {
+  content: '⚠ ';
+  margin-right: 0.25rem;
+}

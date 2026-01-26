@@ -1,32 +1,4 @@
-/* Wrapper */
-.inputWrapper {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.inputWrapper.fullWidth {
-  width: 100%;
-}
-
-/* Label */
-.label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 0.25rem;
-}
-
-.label.required::after {
-  content: '';
-}
-
-.requiredIndicator {
-  color: #dc2626;
-  margin-left: 0.25rem;
-}
-
-/* Input */
+/* Base Input Styles */
 .input {
   font-family: inherit;
   font-size: 1rem;
@@ -39,6 +11,7 @@
   outline: none;
 }
 
+/* Focus state */
 .input:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
@@ -65,7 +38,7 @@
   font-size: 1.125rem;
 }
 
-/* States */
+/* Error state */
 .input.error {
   border-color: #dc2626;
 }
@@ -75,6 +48,7 @@
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
+/* Disabled state */
 .input.disabled,
 .input:disabled {
   background-color: #f3f4f6;
@@ -83,35 +57,17 @@
   opacity: 0.8;
 }
 
+/* Full width */
 .fullWidth {
   width: 100%;
 }
 
-/* Helper and Error text */
-.helperText,
-.errorText {
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+/* Placeholder */
+.input::placeholder {
+  color: #9ca3af;
+  opacity: 1;
 }
 
-.helperText {
-  color: #6b7280;
-}
-
-.errorText {
-  color: #dc2626;
-  font-weight: 500;
-}
-
-/* Visually hidden (for screen readers only) */
-.visuallyHidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+.input:disabled::placeholder {
+  color: #d1d5db;
 }

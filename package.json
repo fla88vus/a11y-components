@@ -38,6 +38,7 @@
     "test:e2e:input": "playwright test tests/e2e/Input.e2e.test.ts",
     "test:e2e:radio": "playwright test tests/e2e/Radio.e2e.test.ts",
     "test:e2e:checkbox": "playwright test tests/e2e/Checkbox.e2e.test.ts",
+    "test:e2e:formField": "playwright test tests/e2e/FormField.e2e.test.ts",
     "test:e2e:icon": "playwright test tests/e2e/Icon.e2e.test.ts",
     "test:e2e:ui": "playwright test tests/e2e --ui",
     "test:playwright": "playwright test",

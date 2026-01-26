@@ -1,0 +1,12 @@
+.helperText {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+/* When associated with disabled field */
+.helperText[aria-disabled='true'] {
+  color: #9ca3af;
+}

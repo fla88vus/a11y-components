@@ -9,10 +9,27 @@ export type { InputProps } from './atoms/Input';
 
 export { Checkbox } from './atoms/Checkbox';
 export type { CheckboxProps } from './atoms/Checkbox';
+
+export { Radio } from './atoms/Radio';
+export type { RadioProps } from './atoms/Radio';
+
+export { Icon } from './atoms/Icon';
+export type { IconProps } from './atoms/Icon';
+
+export { Label } from './atoms/Label';
+export type { LabelProps } from './atoms/Label';
+
+export { HelperText } from './atoms/HelperText';
+export type { HelperTextProps } from './atoms/HelperText';
+
+export { ErrorText } from './atoms/ErrorText';
+export type { ErrorTextProps } from './atoms/ErrorText';
+
 // ===================================
 // MOLECULES - Composite components
 // ===================================
-// TODO: Add molecules here
+export { FormField } from './molecules/FormField/FormField';
+export type { FormFieldProps, FormFieldChildProps } from './molecules/FormField/FormField';
 
 // ===================================
 // ORGANISMS - Complex components

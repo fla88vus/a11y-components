@@ -1,0 +1,20 @@
+.label {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+}
+
+.label:has(+ input:disabled),
+.label:has(+ select:disabled),
+.label:has(+ textarea:disabled) {
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.required {
+  color: #dc2626;
+  font-weight: 600;
+}

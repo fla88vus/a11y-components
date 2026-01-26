@@ -1,2 +1,2 @@
-// Molecules - Combinations of atoms
-// TODO: Add molecules exports here
+export { FormField } from './FormField/FormField';
+export type { FormFieldProps, FormFieldChildProps } from './FormField/FormField';

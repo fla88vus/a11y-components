@@ -1,97 +1,67 @@
-import React, { useId } from 'react';
+import React from 'react';
 import styles from './Input.module.css';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   /**
-   * Input label (required for accessibility)
-   */
-  label: string;
-
-  /**
-   * Input type
-   * @default "text"
-   */
-  type?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'search' | 'number';
-
-  /**
-   * Input size
+   * Visual size variant
    * @default "medium"
    */
   size?: 'small' | 'medium' | 'large';
 
   /**
-   * Error message (when present, input is marked as invalid)
+   * Visual error state (adds red border)
+   * Note: This only affects styling. For accessibility, use aria-invalid on the element.
+   * @default false
    */
-  error?: string;
-
-  /**
-   * Helper text (additional description)
-   */
-  helperText?: string;
+  error?: boolean;
 
   /**
    * Full width input
    * @default false
    */
   fullWidth?: boolean;
-
-  /**
-   * Hide label visually but keep it for screen readers
-   * @default false
-   */
-  hideLabel?: boolean;
 }
 
 /**
- * Accessible Input component following WCAG 2.1 AA standards
+ * Accessible Input atom - a styled <input> element
  *
- * Features:
- * - Native <input> element for semantic HTML
- * - Proper label association via htmlFor
- * - Error states with aria-invalid and aria-describedby
- * - Helper text support
- * - Visible focus indicator
- * - Required indicator
+ * This is a pure atom - just a styled HTML input with no label, error text, or helper text.
+ * Use it standalone or compose it with Label, ErrorText, and HelperText atoms.
  *
  * @example
+ * Basic usage:
  * ```tsx
- * <Input
- *   label="Email"
- *   type="email"
- *   required
- *   error="Invalid email address"
- *   helperText="We'll never share your email"
- * />
+ * <Input type="email" placeholder="Email" />
+ * ```
+ *
+ * @example
+ * With error state:
+ * ```tsx
+ * <Input type="email" error aria-invalid="true" />
+ * ```
+ *
+ * @example
+ * Full composition (use FormField molecule instead):
+ * ```tsx
+ * <Label htmlFor="email">Email</Label>
+ * <Input id="email" type="email" aria-describedby="email-error" />
+ * <ErrorText id="email-error">Invalid email</ErrorText>
  * ```
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      label,
-      type = 'text',
       size = 'medium',
-      error,
-      helperText,
+      error = false,
       fullWidth = false,
-      hideLabel = false,
-      required = false,
-      disabled = false,
       className,
-      id: providedId,
+      disabled = false,
+      type = 'text',
       ...props
     },
     ref
   ) => {
-    // Generate unique IDs for accessibility
-    const generatedId = useId();
-    const id = providedId || generatedId;
-    const errorId = error ? `${id}-error` : undefined;
-    const helperTextId = helperText ? `${id}-helper` : undefined;
-
-    // Build aria-describedby
-    const describedBy = [errorId, helperTextId].filter(Boolean).join(' ') || undefined;
-
-    const inputClasses = [
+    const classes = [
       styles.input,
       styles[size],
       error && styles.error,
@@ -102,52 +72,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       .filter(Boolean)
       .join(' ');
 
-    const labelClasses = [
-      styles.label,
-      hideLabel && styles.visuallyHidden,
-      required && styles.required,
-    ]
-      .filter(Boolean)
-      .join(' ');
-
-    return (
-      <div className={`${styles.inputWrapper} ${fullWidth ? styles.fullWidth : ''}`}>
-        <label htmlFor={id} className={labelClasses}>
-          {label}
-          {required && (
-            <span className={styles.requiredIndicator} aria-label="required">
-              {' '}
-              *
-            </span>
-          )}
-        </label>
-
-        <input
-          ref={ref}
-          id={id}
-          type={type}
-          className={inputClasses}
-          required={required}
-          disabled={disabled}
-          aria-invalid={error ? true : undefined}
-          aria-describedby={describedBy}
-          aria-required={required || undefined}
-          {...props}
-        />
-
-        {helperText && !error && (
-          <span id={helperTextId} className={styles.helperText}>
-            {helperText}
-          </span>
-        )}
-
-        {error && (
-          <span id={errorId} className={styles.errorText} role="alert">
-            {error}
-          </span>
-        )}
-      </div>
-    );
+    return <input ref={ref} type={type} className={classes} disabled={disabled} {...props} />;
   }
 );
 
