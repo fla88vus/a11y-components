@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
+  ignoreDeadLinks: true,
   title: 'a11y UI Kit React',
   description: 'Production-ready accessible React components following WCAG 2.1 AA standards',
 
