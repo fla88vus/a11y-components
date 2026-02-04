@@ -1,0 +1,41 @@
+/* Radiogroup.module.css */
+
+/* Container for the whole group */
+.radiogroup {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Legend styling */
+.radiogroupLegend {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #111;
+  font-size: 1rem;
+  display: block;
+}
+
+/* Options container */
+.radiogroupOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Helper text */
+.radiogroupHelper {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+/* Error text */
+.radiogroupError {
+  font-size: 0.875rem;
+  color: #dc2626;
+  margin-top: 0.25rem;
+}

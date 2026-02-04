@@ -1,0 +1,80 @@
+/* packages/ui-kit/src/tokens/colors.css */
+/**
+ * Design Tokens - Colors
+ * WCAG 2.1 AA compliant color palette
+ */
+
+:root {
+  /* ============================================
+   * Text Colors
+   * ============================================ */
+  --a11y-color-text-primary: #111827; /* gray-900 - Main text */
+  --a11y-color-text-secondary: #6b7280; /* gray-500 - Secondary text */
+  --a11y-color-text-disabled: #9ca3af; /* gray-400 - Disabled text */
+  --a11y-color-text-inverse: #ffffff; /* White - Text on dark bg */
+
+  /* ============================================
+   * Background Colors
+   * ============================================ */
+  --a11y-color-bg-primary: #ffffff; /* White - Main background */
+  --a11y-color-bg-secondary: #f9fafb; /* gray-50 - Secondary background */
+  --a11y-color-bg-disabled: #f3f4f6; /* gray-100 - Disabled background */
+  --a11y-color-bg-hover: #f3f4f6; /* gray-100 - Hover state */
+
+  /* ============================================
+   * Border Colors
+   * ============================================ */
+  --a11y-color-border-default: #6b7280; /* gray-500 - Default borders */
+  --a11y-color-border-light: #d1d5db; /* gray-300 - Light borders */
+  --a11y-color-border-hover: #3b82f6; /* blue-500 - Hover state */
+  --a11y-color-border-focus: #2563eb; /* blue-600 - Focus state */
+  --a11y-color-border-error: #dc2626; /* red-600 - Error state */
+
+  /* ============================================
+   * Interactive Colors (Primary)
+   * ============================================ */
+  --a11y-color-primary-50: #eff6ff; /* blue-50 */
+  --a11y-color-primary-100: #dbeafe; /* blue-100 */
+  --a11y-color-primary-500: #3b82f6; /* blue-500 - Primary brand */
+  --a11y-color-primary-600: #2563eb; /* blue-600 - Primary hover */
+  --a11y-color-primary-700: #1d4ed8; /* blue-700 - Primary active */
+
+  /* ============================================
+   * Status Colors
+   * ============================================ */
+
+  /* Error / Danger */
+  --a11y-color-error-50: #fef2f2; /* red-50 */
+  --a11y-color-error-100: #fee2e2; /* red-100 */
+  --a11y-color-error-500: #ef4444; /* red-500 */
+  --a11y-color-error-600: #dc2626; /* red-600 */
+  --a11y-color-error-700: #b91c1c; /* red-700 */
+
+  /* Success */
+  --a11y-color-success-50: #f0fdf4; /* green-50 */
+  --a11y-color-success-100: #dcfce7; /* green-100 */
+  --a11y-color-success-500: #22c55e; /* green-500 */
+  --a11y-color-success-600: #16a34a; /* green-600 */
+  --a11y-color-success-700: #15803d; /* green-700 */
+
+  /* Warning */
+  --a11y-color-warning-50: #fffbeb; /* amber-50 */
+  --a11y-color-warning-100: #fef3c7; /* amber-100 */
+  --a11y-color-warning-500: #f59e0b; /* amber-500 */
+  --a11y-color-warning-600: #d97706; /* amber-600 */
+  --a11y-color-warning-700: #b45309; /* amber-700 */
+
+  /* Info */
+  --a11y-color-info-50: #f0f9ff; /* sky-50 */
+  --a11y-color-info-100: #e0f2fe; /* sky-100 */
+  --a11y-color-info-500: #0ea5e9; /* sky-500 */
+  --a11y-color-info-600: #0284c7; /* sky-600 */
+  --a11y-color-info-700: #0369a1; /* sky-700 */
+
+  /* ============================================
+   * Focus & Overlay
+   * ============================================ */
+  --a11y-color-focus-ring: #3b82f6; /* blue-500 - Focus outline */
+  --a11y-color-focus-ring-offset: #ffffff; /* White - Focus ring offset */
+  --a11y-color-overlay: rgba(0, 0, 0, 0.5); /* Modal overlay */
+}

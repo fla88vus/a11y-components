@@ -1,31 +1,36 @@
 # Radio
 
-Accessible radio button component for mutually exclusive selections with integrated label and helper text.
+Accessible radio button component for mutually exclusive selections. Designed to work seamlessly with the `Radiogroup` component for proper grouping and accessibility.
 
 ## Import
 
 ```tsx
-import { Radio } from '@flavia-dev/a11y-ui-kit-react';
+import { Radio, Radiogroup } from '@flavia-dev/a11y-ui-kit-react';
 ```
 
 ## Basic Usage
 
-Radio buttons must have the same `name` attribute to form a group where only one option can be selected:
+Radio buttons are designed to be used within a `Radiogroup` component, which provides proper fieldset/legend structure and context:
 
 ```tsx
-<Radio name="payment" value="card" label="Credit Card" />
-<Radio name="payment" value="paypal" label="PayPal" />
-<Radio name="payment" value="bank" label="Bank Transfer" />
+<Radiogroup name="payment" legend="Select Payment Method">
+  <Radio value="card" label="Credit Card" />
+  <Radio value="paypal" label="PayPal" />
+  <Radio value="bank" label="Bank Transfer" />
+</Radiogroup>
 ```
 
-## Sizes
+### Standalone Usage
 
-Three size options:
+For advanced use cases, Radio can be used independently with a custom fieldset:
 
 ```tsx
-<Radio name="size-demo" value="small" label="Small radio" size="small" />
-<Radio name="size-demo" value="medium" label="Medium radio" size="medium" />
-<Radio name="size-demo" value="large" label="Large radio" size="large" />
+<fieldset>
+  <legend>Choose an option</legend>
+  <Radio label="Option A" value="a" />
+  <Radio label="Option B" value="b" />
+  <Radio label="Option C" value="c" />
+</fieldset>
 ```
 
 ## States
@@ -33,88 +38,82 @@ Three size options:
 ### Checked
 
 ```tsx
-<Radio name="default" value="option1" label="Selected option" checked />
-<Radio name="default" value="option2" label="Unselected option" />
+<Radiogroup name="options" legend="Select one">
+  <Radio value="option1" label="Selected option" defaultChecked />
+  <Radio value="option2" label="Unselected option" />
+</Radiogroup>
 ```
 
 ### Disabled
 
+Disable individual radios or the entire group:
+
 ```tsx
-<Radio name="disabled-demo" value="opt1" label="Disabled unchecked" disabled />
-<Radio name="disabled-demo" value="opt2" label="Disabled checked" checked disabled />
+{/* Individual radio disabled */}
+<Radiogroup name="options1" legend="Choose">
+  <Radio value="opt1" label="Available" />
+  <Radio value="opt2" label="Disabled option" disabled />
+</Radiogroup>
+
+{/* Entire group disabled */}
+<Radiogroup name="options2" legend="Choose" disabled>
+  <Radio value="opt1" label="All options" />
+  <Radio value="opt2" label="Are disabled" />
+</Radiogroup>
 ```
 
-### Required
+## With Helper Text and Errors
+
+Use `Radiogroup` props to display helper text and errors:
 
 ```tsx
-<Radio name="required-demo" value="yes" label="Required option" required />
-```
-
-## With Helper Text
-
-```tsx
-<Radio
+<Radiogroup
   name="shipping"
-  value="express"
-  label="Express Shipping"
-  helperText="Delivery in 2-3 business days"
-/>
-```
-
-## With Error
-
-```tsx
-<Radio
-  name="payment"
-  value="card"
-  label="Credit Card"
-  error="Payment method is required"
-/>
+  legend="Shipping Method"
+  helperText="Choose your preferred delivery option"
+  error="Please select a shipping method"
+>
+  <Radio value="standard" label="Standard (5-7 days)" />
+  <Radio value="express" label="Express (2-3 days)" />
+  <Radio value="overnight" label="Overnight" />
+</Radiogroup>
 ```
 
 ## Examples
 
-### Radio Group with Fieldset
-
-Always wrap radio groups in a `<fieldset>` with a `<legend>` for accessibility:
+### Payment Options
 
 ```tsx
 function PaymentOptions() {
-  const [payment, setPayment] = useState('');
+  const [payment, setPayment] = useState('card');
 
   return (
-    <fieldset style={{ border: 'none', padding: 0 }}>
-      <legend style={{ fontWeight: 600, marginBottom: '12px' }}>
-        Select Payment Method
-      </legend>
-      
+    <Radiogroup 
+      name="payment" 
+      legend="Select Payment Method"
+      helperText="All payment methods are secure and encrypted"
+    >
       <Radio
-        name="payment"
         value="card"
         label="Credit/Debit Card"
-        helperText="Visa, Mastercard, Amex"
         checked={payment === 'card'}
         onChange={(e) => setPayment(e.target.value)}
       />
       
       <Radio
-        name="payment"
         value="paypal"
         label="PayPal"
-        helperText="Pay securely with PayPal"
         checked={payment === 'paypal'}
         onChange={(e) => setPayment(e.target.value)}
       />
       
       <Radio
-        name="payment"
         value="bank"
         label="Bank Transfer"
-        helperText="Direct bank transfer"
         checked={payment === 'bank'}
         onChange={(e) => setPayment(e.target.value)}
       />
-    </fieldset>
+    </Radiogroup>
   );
 }
 ```
@@ -125,36 +124,28 @@ function PaymentOptions() {
 function ShippingOptions() {
   const [shipping, setShipping] = useState<'standard' | 'express' | 'overnight'>('standard');
 
+  const shippingOptions = [
+    { value: 'standard', label: 'Standard (5-7 days) - Free' },
+    { value: 'express', label: 'Express (2-3 days) - $15.00' },
+    { value: 'overnight', label: 'Overnight - $35.00' }
+  ];
+
   return (
     <div>
-      <h3>Shipping Method</h3>
-      
-      <Radio
-        name="shipping"
-        value="standard"
-        label="Standard Shipping (5-7 days)"
-        helperText="Free"
-        checked={shipping === 'standard'}
-        onChange={(e) => setShipping(e.target.value as any)}
-      />
-      
-      <Radio
-        name="shipping"
-        value="express"
-        label="Express Shipping (2-3 days)"
-        helperText="$15.00"
-        checked={shipping === 'express'}
-        onChange={(e) => setShipping(e.target.value as any)}
-      />
-      
-      <Radio
-        name="shipping"
-        value="overnight"
-        label="Overnight Delivery"
-        helperText="$35.00"
-        checked={shipping === 'overnight'}
-        onChange={(e) => setShipping(e.target.value as any)}
-      />
+      <Radiogroup 
+        name="shipping" 
+        legend="Shipping Method"
+      >
+        {shippingOptions.map(option => (
+          <Radio
+            key={option.value}
+            value={option.value}
+            label={option.label}
+            checked={shipping === option.value}
+            onChange={(e) => setShipping(e.target.value as any)}
+          />
+        ))}
+      </Radiogroup>
       
       <p>Selected: {shipping}</p>
     </div>
@@ -169,67 +160,58 @@ function SurveyQuestion() {
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState('');
 
-  function handleSubmit() {
+  const handleSubmit = () => {
     if (!answer) {
-      setError('Please select an option');
+      setError('Please select an option to continue');
       return;
     }
     setError('');
     // Submit form
-  }
+    console.log('Submitted:', answer);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAnswer(e.target.value);
+    setError(''); // Clear error on selection
+  };
 
   return (
     <div>
-      <fieldset style={{ border: 'none', padding: 0 }}>
-        <legend>How satisfied are you with our service?</legend>
-        
+      <Radiogroup
+        name="satisfaction"
+        legend="How satisfied are you with our service?"
+        error={error}
+      >
         <Radio
-          name="satisfaction"
           value="very-satisfied"
           label="Very Satisfied"
           checked={answer === 'very-satisfied'}
-          onChange={(e) => {
-            setAnswer(e.target.value);
-            setError('');
-          }}
-          error={error}
+          onChange={handleChange}
         />
         
         <Radio
-          name="satisfaction"
           value="satisfied"
           label="Satisfied"
           checked={answer === 'satisfied'}
-          onChange={(e) => {
-            setAnswer(e.target.value);
-            setError('');
-          }}
+          onChange={handleChange}
         />
         
         <Radio
-          name="satisfaction"
           value="neutral"
           label="Neutral"
           checked={answer === 'neutral'}
-          onChange={(e) => {
-            setAnswer(e.target.value);
-            setError('');
-          }}
+          onChange={handleChange}
         />
         
         <Radio
-          name="satisfaction"
           value="dissatisfied"
           label="Dissatisfied"
           checked={answer === 'dissatisfied'}
-          onChange={(e) => {
-            setAnswer(e.target.value);
-            setError('');
-          }}
+          onChange={handleChange}
         />
-      </fieldset>
+      </Radiogroup>
       
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit}>Submit Survey</button>
     </div>
   );
 }
@@ -254,10 +236,19 @@ function ContactPreference() {
           label="Email"
           checked={contact === 'email'}
           onChange={(e) => setContact(e.target.value)}
+       Radiogroup
+        name="contact"
+        legend="How should we contact you?"
+        helperText="We'll only contact you about your order"
+      >
+        <Radio
+          value="email"
+          label="Email"
+          checked={contact === 'email'}
+          onChange={(e) => setContact(e.target.value)}
         />
         
         <Radio
-          name="contact"
           value="phone"
           label="Phone"
           checked={contact === 'phone'}
@@ -265,13 +256,12 @@ function ContactPreference() {
         />
         
         <Radio
-          name="contact"
           value="mail"
           label="Postal Mail"
           checked={contact === 'mail'}
           onChange={(e) => setContact(e.target.value)}
         />
-      </fieldset>
+      </Radiogroup>
 
       {contact === 'email' && (
         <input
@@ -279,6 +269,7 @@ function ContactPreference() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your.email@example.com"
+          style={{ marginTop: '16px', width: '100%' }}
         />
       )}
 
@@ -288,135 +279,312 @@ function ContactPreference() {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="(555) 123-4567"
-        />
-      )}
-    </div>
-  );
-}
-```
-
-## API Reference
-
-### Props
+    Radio Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `label` | `string` | - | **Required.** Radio button label text |
-| `name` | `string` | - | **Required.** Radio group name (same for all options) |
-| `value` | `string` | - | **Required.** Radio button value |
-| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Radio button size |
-| `error` | `string` | - | Error message to display |
-| `helperText` | `string` | - | Helper text below radio |
-| `checked` | `boolean` | - | Controlled checked state |
-| `disabled` | `boolean` | `false` | Disable radio button |
-| `required` | `boolean` | `false` | Mark as required |
-| `onChange` | `(e: ChangeEvent) => void` | - | Change handler |
+| `id` | `string` | - | Custom ID (auto-generated if not provided) |
+| `className` | `string` | - | Additional CSS class for wrapper div |
+| `disabled` | `boolean` | - | Disable this radio (or inherited from Radiogroup) |
+| `ref` | `Ref<HTMLInputElement>` | - | Ref forwarding to input element |
 
-Plus all standard HTML radio input attributes (`id`, `className`, `aria-*`, etc.).
+Plus all standard HTML radio input attributes (`value`, `checked`, `defaultChecked`, `onChange`, `name`, `aria-*`, etc.).
 
-## Accessibility Features
+### Radiogroup Props
+
+See [Radiogroup documentation](/components/radiogroup) for complete API.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `legend` | `string` | - | **Required.** Group label (fieldset legend) |
+| `name` | `string` | - | **Required.** Name for all radios in group |
+| `hWCAG 2.1 Level AA Compliant ✅
+
+The Radio component meets all WCAG 2.1 Level AA requirements for accessible form controls.
 
 ### Semantic HTML
 
-- Uses native `<input type="radio">` element
-- Associated `<label>` element for clickable area
-- Proper `id` and `htmlFor` associations
+- ✅ Uses native `<input type="radio">` element
+- ✅ Associated `<Label>` component with proper `htmlFor` binding
+- ✅ Automatic ID generation using `React.useId()`
+- ✅ Works with `Radiogroup` for fieldset/legend structure
 
 ### Keyboard Support
 
-- **Tab**: Navigate to radio group
-- **Arrow Up/Down**: Navigate between options
-- **Arrow Left/Right**: Navigate between options
-- **Space**: Select focused option
+Full keyboard navigation support via native HTML semantics:
+
+- **Tab**: Navigate to radio group (first or checked radio gets focus)
+- **Arrow Up/Left**: Move to previous radio in group
+- **Arrow Down/Right**: Move to next radio in group
+- **Space**: Select focused radio
 - **Shift + Tab**: Navigate backwards
 
 ### Screen Reader Support
 
-- Radio state announced (selected/not selected)
-- Group announced when entering radio group
-- Label text announced
-- Error messages announced via `aria-describedby`
-- Helper text linked via `aria-describedby`
-- Required state announced
+- ✅ Radio role and state announced automatically
+- ✅ Label text read when focused
+- ✅ Group context from fieldset/legend (via Radiogroup)
+- ✅ Error messages linked via `aria-describedby`
+- ✅ Helper text linked via `aria-describedby`
+- ✅ Disabled state announced
 
 ### Visual Accessibility
 
-- **Touch target**: Minimum 44×44 pixels (entire label clickable)
-- **Focus indicator**: Visible outline on keyboard focus
-- **Color contrast**: Meets WCAG AA standards
-- **Error state**: Visual + semantic indication
-- **Group context**: Fieldset and legend for context
+- ✅ **Focus indicator**: Clear 3px outline with offset
+- ✅ **Color contrast**: Meets WCAG AA (4.5:1+)
+- ✅ **Touch target**: Label increases clickable area
+- ✅ **Error state**: Multiple indicators (color + border + text)
+- ✅ **Disabled state**: Reduced opacity + cursor change
+
+### Context Integration
+
+The Radio component automatically receives context from `Radiogroup`:
+- Group name for proper radio grouping
+- `aria-describedby` for helper text and errors
+- Disabled state inheritance
+- Proper semantic structure
 
 ### Best Practices
 
 ✅ **Do:**
-- Always wrap radio groups in `<fieldset>` with `<legend>`
-- Use descriptive, concise labels
-- Keep radio groups to 5-7 options max
-- Provide helper text for clarity
-- Use the same `name` for all options in a group
-- Preselect a default option when appropriate
+- Use with `Radiogroup` for proper accessibility structure
+- Provide clear, descriptive labels
+- Keep groups to 5-7 options maximum
+- Preselect a sensible default when appropriate
+- Use helper text to provide additional context
+- Show clear error messages when validation fails
 
 ❌ **Don't:**
-- Use radio for binary yes/no choices (use Checkbox)
-- Allow no option to be selected (preselect default or add "None")
-- Use too many radio buttons (consider Select/Dropdown)
-- Rely only on color to show selection
-
-## Styling
+- Use for binary yes/no choices (use Checkbox instead)
+The Radio component uses CSS Modules for scoped styling and design tokens for consistency.
 
 ### Custom className
 
+Add custom classes to the wrapper div:
+
 ```tsx
-<Radio
-  name="custom"
-  value="option"
-  label="Custom styled"
-  className="my-radio"
-/>
+<Radiogroup name="custom" legend="Choose">
+  <Radio
+    value="option1"
+    label="Custom styled option"
+    className="my-custom-radio"
+  />
+</Radiogroup>
 ```
 
 ```css
-.my-radio input[type="radio"] {
-  width: 24px;
-  height: 24px;
+.my-custom-radio {
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #f9fafb;
 }
 
-.my-radio label {
-  font-weight: 600;
-  color: #2d3748;
+.my-custom-radio:hover {
+  background-color: #f3f4f6;
 }
 ```
 
-### Inline Styles
+### Design Tokens
 
-```tsx
-<Radio
-  name="inline"
-  value="option"
-  label="Inline styled"
-  style={{ marginBottom: '16px' }}
-/>
+The component uses CSS custom properties (design tokens):
+
+```css
+/* Available tokens used by Radio */
+--a11y-space-2          /* Gap between radio and label */
+--a11y-font-family-sans /* Font family */
+--a11y-color-border-default
+--a11y-color-border-focus
+--a11y-color-bg-primary
+--a11y-color-focus-ring
+--a11y-color-primary-600
+--a11y-color-text-primary
+--a11y-focus-ring-width
+--a11y-focus-ring-offset
+--a11y-transition-input
 ```
 
-### Tailwind CSS
+### Customizing via Tokens
 
-```tsx
-<Radio
-  name="tailwind"
-  value="option"
-  label="Tailwind styled"
-  className="mb-4"
-/>
+Override tokens in your theme:
+ onSubmit={handleSubmit}>
+  <Radiogroup name="size" legend="Choose your size">
+    <Radio value="small" label="Small" defaultChecked />
+    <Radio value="medium" label="Medium" />
+    <Radio value="large" label="Large" />
+  </Radiogroup>
+  
+  <button type="submit">Continue</button>
+</form>
 ```
 
-## Form Integration
-
-### With HTML Form
+### With React Hook Form
 
 ```tsx
-<form>
-  <fieldset>
+import { useForm, Controller } from 'react-hook-form';
+
+type FormData = {
+  preference: string;
+};
+
+function MyForm() {
+  const { control, handleSubmit } = useForm<FormData>();
+
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="preference"
+        control={control}
+        rules={{ required: 'Please select an option' }}
+        render={({ field, fieldState }) => (
+          <Radiogroup 
+            name="preference" 
+            legend="Select your preference"
+            error={fieldState.error?.message}
+          >
+            <Radio 
+              value="a" 
+              label="Option A"
+              checked={field.value === 'a'}
+              onChange={field.onChange}
+            />
+            <Radio 
+              value="b" 
+              label="Option B"
+              checked={field.value === 'b'}
+              onChange={field.onChange}
+            />
+          </Radiogroup>
+        )}
+      />
+      
+      <button type="submit">Submit</button>
+    </form>
+  );
+}, Radiogroup } from '@flavia-dev/a11y-ui-kit-react';
+
+test('selects radio on click', () => {
+  const handleChange = jest.fn();
+  
+  render(
+    <Radiogroup name="test" legend="Choose">
+      <Radio value="a" label="Option A" onChange={handleChange} />
+      <Radio value="b" label="Option B" />
+    </Radiogroup>
+  );
+  
+  const radioA = screen.getByLabelText('Option A');
+  fireEvent.click(radioA);
+  
+  expect(handleChange).toHaveBeenCalled();
+  expect(radioA).toBeChecked();
+});
+
+test('shows error message', () => {
+  render(
+    <Radiogroup 
+      name="test" 
+      legend="Choose" 
+      error="Selection required"
+    >
+      <Radio value="a" label="Option A" />
+    </Radiogroup>
+  );
+  
+  expect(screen.getByText('Selection required')).toBeInTheDocument();
+});
+
+test('disables all radios when group is disabled', () => {
+  render(
+    <Radiogroup name="test" legend="Choose" disabled>
+      <Radio value="a" label="Option A" />
+      <Radio value="b" label="Option B" />
+    </Radiogroup>
+  )Component Architecture
+
+The Radio component follows atomic design principles:
+
+- **Radio** (Atom): Individual radio input with label
+- **Radiogroup** (Molecule): Grouped radios with fieldset structure
+- Uses **Label** (Atom) for text display
+- Uses **GroupContext** (Primitive) for state sharing
+- Integrates with **ErrorText** and **HelperText** via Radiogroup
+
+### Implementation Details
+
+```tsx
+// Simplified structure
+<div className={styles.radio}>  {/* Wrapper with styling */}
+  <input 
+    type="radio"
+    id={generatedOrProvidedId}  {/* Auto-generated unique ID */}
+    name={group?.name}           {/* From context */}
+    aria-describedby={group?.describedBy}  {/* Error/helper text */}
+    disabled={disabled ?? group?.disabled}
+    ref={ref}                    {/* Forwarded ref */}
+  />
+  <Label htmlFor={id}>          {/* Explicit association */}
+    {label}
+  </Label>
+</div>
+```
+
+### Ref Forwarding
+
+The component forwards refs to the input element:
+
+```tsx
+const radioRef = useRef<HTMLInputElement>(null);
+
+<Radio ref={radioRef} value="option" label="Option" />
+
+// Access input directly
+radioRef.current?.focus();
+```
+
+## Related Components
+
+- [Radiogroup](/components/radiogroup) - Wrapper for radio groups ⭐ **Recommended**
+- [Checkbox](/components/checkbox) - For multiple selections
+- [CheckboxGroup](/components/checkbox-group) - Multiple checkbox grouping
+- [FormField](/components/form-field) - Complete form field composition
+- [Label](/components/label) - Standalone labels
+- [ErrorText](/components/error-text) - Error messages
+- [HelperText](/components/helper-text) - Helper text
+
+## Changelog
+
+See [CHANGELOG.md](/changelog) for version history.
+
+## Resources
+
+- [WCAG 2.1 Guidelines for Radio Buttons](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html)
+- [MDN: &lt;input type="radio"&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio)
+- [ARIA: radio role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radio_role)
+```tsx
+import { render } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
+import { Radio, Radiogroup } from '@flavia-dev/a11y-ui-kit-react';
+
+expect.extend(toHaveNoViolations);
+
+test('has no accessibility violations', async () => {
+  const { container } = render(
+    <Radiogroup name="test" legend="Select option">
+      <Radio value="a" label="Option A" />
+      <Radio value="b" label="Option B" />
+      <Radio value="c" label="Option C" />
+    </Radiogroup>
+  );
+  
+  const results = await axe(container);
+  expect(results).toHaveNoViolations
+      
+      <button type="submit">Add to Cart</buttondset>
     <legend>Choose size</legend>
     <Radio name="size" value="small" label="Small" required />
     <Radio name="size" value="medium" label="Medium" required />

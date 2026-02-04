@@ -1,0 +1,9 @@
+/* tokens/spacing.css */
+:root {
+  --a11y-space-1: 0.25rem;
+  --a11y-space-2: 0.5rem;
+  --a11y-space-3: 0.75rem;
+  --a11y-space-4: 1rem;
+  --a11y-space-6: 1.5rem;
+  --a11y-space-8: 2rem;
+}

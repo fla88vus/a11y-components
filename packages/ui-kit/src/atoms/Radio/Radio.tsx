@@ -1,94 +1,34 @@
-import React, { useId } from 'react';
+import React from 'react';
+import { useGroupContext } from '../../primitives/GroupContext';
+import { Label } from '../Label';
 import styles from './Radio.module.css';
 
 export interface RadioProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  'size' | 'type'
+  'type' | 'name' | 'size'
 > {
   label: string;
-  size?: 'small' | 'medium' | 'large';
-  error?: string;
-  helperText?: string;
-  name: string;
-  value: string;
+  disabled?: boolean;
 }
 
 export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
-  (
-    {
-      label,
-      size = 'medium',
-      error,
-      helperText,
-      disabled = false,
-      required = false,
-      className,
-      id: providedId,
-      name,
-      value,
-      ...props
-    },
-    ref
-  ) => {
-    const generatedId = useId();
-    const id = providedId || `${name}-${value}-${generatedId}`;
-    const errorId = error ? `${id}-error` : undefined;
-    const helperTextId = helperText ? `${id}-helper` : undefined;
-
-    const describedBy = [errorId, helperTextId].filter(Boolean).join(' ') || undefined;
-
-    const radioClasses = [
-      styles.radio,
-      styles[size],
-      error && styles.error,
-      disabled && styles.disabled,
-      className,
-    ]
-      .filter(Boolean)
-      .join(' ');
-
-    const labelClasses = [styles.label, disabled && styles.disabled, required && styles.required]
-      .filter(Boolean)
-      .join(' ');
+  ({ label, id: providedId, className, disabled, ...props }, ref) => {
+    const group = useGroupContext();
+    const generatedId = React.useId();
+    const id = providedId ?? generatedId;
 
     return (
-      <div className={styles.radioWrapper}>
-        <div className={styles.inputGroup}>
-          <input
-            ref={ref}
-            id={id}
-            type="radio"
-            name={name}
-            value={value}
-            className={radioClasses}
-            disabled={disabled}
-            required={required}
-            aria-describedby={describedBy}
-            {...props}
-          />
-
-          <label htmlFor={id} className={labelClasses}>
-            {label}
-            {required && (
-              <span className={styles.requiredIndicator} aria-label="required">
-                {' '}
-                *
-              </span>
-            )}
-          </label>
-        </div>
-
-        {helperText && !error && (
-          <span id={helperTextId} className={styles.helperText}>
-            {helperText}
-          </span>
-        )}
-
-        {error && (
-          <span id={errorId} className={styles.errorText} role="alert">
-            {error}
-          </span>
-        )}
+      <div className={[styles.radio, className].filter(Boolean).join(' ')}>
+        <input
+          ref={ref}
+          id={id}
+          type="radio"
+          name={group?.name}
+          aria-describedby={group?.describedBy}
+          disabled={disabled ?? group?.disabled}
+          {...props}
+        />
+        <Label htmlFor={id}>{label}</Label>
       </div>
     );
   }

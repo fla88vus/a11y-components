@@ -31,6 +31,11 @@ export type { ErrorTextProps } from './atoms/ErrorText';
 export { FormField } from './molecules/FormField/FormField';
 export type { FormFieldProps, FormFieldChildProps } from './molecules/FormField/FormField';
 
+export { Radiogroup } from './molecules/RadioGroup/RadioGroup';
+export type { RadioGroupProps } from './molecules/RadioGroup/RadioGroup';
+export { CheckboxGroup } from './molecules/CheckboxGroup/CheckboxGroup';
+export type { CheckboxGroupProps } from './molecules/CheckboxGroup/CheckboxGroup';
+
 // ===================================
 // ORGANISMS - Complex components
 // ===================================

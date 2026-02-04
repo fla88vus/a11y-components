@@ -18,23 +18,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          
+          cache: "pnpm"
+
       - name: Install dependencies
-        run: npm ci
-        
+        run: pnpm install --frozen-lockfile
+
       - name: Build VitePress site
-        run: npm run docs:build
-        
+        run: |
+          cd packages/docs
+          pnpm build
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: packages/docs/.vitepress/dist
 
   deploy:
     environment:

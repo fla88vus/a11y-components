@@ -1,0 +1,6 @@
+/* tokens/transitions.css */
+:root {
+  --a11y-transition-fast: 0.15s ease;
+  --a11y-transition-base: 0.2s ease;
+  --a11y-transition-slow: 0.3s ease;
+}

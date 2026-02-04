@@ -1,0 +1,39 @@
+/* packages/ui-kit/src/molecules/CheckboxGroup/CheckboxGroup.module.css */
+.group {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.legend {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--a11y-color-text-primary, #111827);
+  margin-bottom: 0.75rem;
+  padding: 0;
+}
+
+.checkboxList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.selectAll {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--a11y-color-border-light, #d1d5db);
+  margin-bottom: 0.25rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.group[disabled] .legend {
+  color: var(--a11y-color-text-disabled, #9ca3af);
+  cursor: not-allowed;
+}

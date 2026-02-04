@@ -1,0 +1,6 @@
+/* Global styles entry for library consumers */
+@import './tokens/index.css';
+/* Add any global resets or base rules here if needed */
+/* :root {
+  optional library-level overrides 
+ } */

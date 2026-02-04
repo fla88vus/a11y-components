@@ -53,7 +53,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "prepublishOnly": "npm run typecheck && npm run build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:analyzer": "tsx scripts/generate-tests/test-analyzer.ts"
   },
   "keywords": [
     "react",
@@ -115,14 +116,16 @@
     "prettier": "^3.8.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "search-insights": "2.17.3",
     "storybook": "^8.6.14",
+    "ts-morph": "^27.0.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.53.1",
     "vite": "^6.4.1",
     "vite-plugin-dts": "^4.5.4",
     "vitepress": "^1.6.4",
-    "vitest": "^4.0.15",
-    "search-insights": "2.17.3"
+    "vitest": "^4.0.15"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
