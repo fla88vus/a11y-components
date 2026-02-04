@@ -159,8 +159,8 @@ Combinations of atoms that work together:
     <p style="margin-bottom: 0; color: #666;">See practical usage patterns</p>
   </a>
   
-  <a href="https://github.com/fla88vus/a11y-components" style="text-decoration: none; padding: 20px; background: #f6f6f7; border-radius: 8px; display: block;">
+  <!-- <a href="https://github.com/fla88vus/a11y-components" style="text-decoration: none; padding: 20px; background: #f6f6f7; border-radius: 8px; display: block;">
     <h3 style="margin-top: 0;">💻 GitHub</h3>
     <p style="margin-bottom: 0; color: #666;">View source code and contribute</p>
-  </a>
+  </a> -->
 </div>
