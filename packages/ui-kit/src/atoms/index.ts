@@ -13,3 +13,6 @@ export type { RadioProps } from './Radio';
 
 export { Icon } from './Icon';
 export type { IconProps } from './Icon';
+
+export { Textarea } from './Textarea';
+export type { TextareaProps } from './Textarea';

@@ -1,27 +1,33 @@
 import React from 'react';
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen, renderWithProviders } from '../../test/test-utils';
 import { HelperText } from './HelperText';
 
-describe('HelperText', () => {
+/**
+ * HelperText Component Tests
+ * Pattern: Display Component (Atom)
+ *
+ * Simple rendering tests for helper text display
+ */
+describe('HelperText - Component Tests', () => {
   it('renders helper text', () => {
-    render(<HelperText>This is helpful information</HelperText>);
+    renderWithProviders(<HelperText>This is helpful information</HelperText>);
     expect(screen.getByText('This is helpful information')).toBeInTheDocument();
   });
 
-  it('forwards ref', () => {
+  it('forwards ref correctly', () => {
     const ref = React.createRef<HTMLSpanElement>();
-    render(<HelperText ref={ref}>Test</HelperText>);
+    renderWithProviders(<HelperText ref={ref}>Test</HelperText>);
     expect(ref.current).toBeInstanceOf(HTMLSpanElement);
   });
 
   it('applies custom className', () => {
-    render(<HelperText className="custom">Test</HelperText>);
+    renderWithProviders(<HelperText className="custom">Test</HelperText>);
     expect(screen.getByText('Test')).toHaveClass('custom');
   });
 
   it('passes through HTML attributes', () => {
-    render(
+    renderWithProviders(
       <HelperText id="helper-1" data-testid="helper">
         Test
       </HelperText>
@@ -31,7 +37,7 @@ describe('HelperText', () => {
   });
 
   it('can be associated with input via aria-describedby', () => {
-    render(
+    renderWithProviders(
       <>
         <input aria-describedby="helper-text" />
         <HelperText id="helper-text">Helper info</HelperText>

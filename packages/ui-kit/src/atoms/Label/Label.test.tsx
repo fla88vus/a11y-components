@@ -1,16 +1,22 @@
 import React from 'react';
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen, renderWithProviders } from '../../test/test-utils';
 import { Label } from './Label';
 
-describe('Label', () => {
+/**
+ * Label Component Tests
+ * Pattern: Display Component (Atom)
+ *
+ * Simple rendering tests - no complex patterns needed
+ */
+describe('Label - Component Tests', () => {
   it('renders label text', () => {
-    render(<Label htmlFor="test">Test Label</Label>);
+    renderWithProviders(<Label htmlFor="test">Test Label</Label>);
     expect(screen.getByText('Test Label')).toBeInTheDocument();
   });
 
   it('associates with input via htmlFor', () => {
-    render(
+    renderWithProviders(
       <>
         <Label htmlFor="test-input">Test</Label>
         <input id="test-input" />
@@ -22,23 +28,23 @@ describe('Label', () => {
   });
 
   it('shows required indicator when required', () => {
-    render(<Label required>Required Field</Label>);
+    renderWithProviders(<Label required>Required Field</Label>);
     expect(screen.getByLabelText('required')).toBeInTheDocument();
   });
 
-  it('forwards ref', () => {
+  it('forwards ref correctly', () => {
     const ref = React.createRef<HTMLLabelElement>();
-    render(<Label ref={ref}>Test</Label>);
+    renderWithProviders(<Label ref={ref}>Test</Label>);
     expect(ref.current).toBeInstanceOf(HTMLLabelElement);
   });
 
   it('applies custom className', () => {
-    render(<Label className="custom">Test</Label>);
+    renderWithProviders(<Label className="custom">Test</Label>);
     expect(screen.getByText('Test')).toHaveClass('custom');
   });
 
   it('passes through HTML attributes', () => {
-    render(<Label data-testid="custom-label">Test</Label>);
+    renderWithProviders(<Label data-testid="custom-label">Test</Label>);
     expect(screen.getByTestId('custom-label')).toBeInTheDocument();
   });
 });

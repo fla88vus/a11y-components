@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { GroupProvider } from '../../primitives/GroupContext';
-import styles from './Radiogroup.module.css';
+import styles from './RadioGroup.module.css';
 import { HelperText } from '../../atoms/HelperText';
 import { ErrorText } from '../../atoms/ErrorText/ErrorText';
 
@@ -14,7 +14,7 @@ export interface RadioGroupProps {
   className?: string;
 }
 
-export const Radiogroup = ({
+export const RadioGroup = ({
   legend,
   name,
   helperText,

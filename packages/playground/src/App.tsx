@@ -1,64 +1,67 @@
 import React from 'react';
 import './App.css';
 
-import {
-  Radiogroup,
-  Radio,
-  FormField,
-  Checkbox,
-  CheckboxGroup,
-} from '@flavia-dev/a11y-ui-kit-react';
+import { FormField, Textarea } from '@flavia-dev/a11y-ui-kit-react';
 function App() {
-  const options = [
-    { value: 'card', label: 'Credit Card' },
-    { value: 'paypal', label: 'PayPal' },
-    { value: 'bank', label: 'Bank Transfer' },
-  ];
-
-  const [values, setValues] = React.useState<string[]>([]);
-
   return (
     <>
       <h1>Test a11y-ui-kit</h1>
-      {/* <div className="card">
-        <FormField
-          label="Payment method"
-          helperText="Choose one option"
-          error="Please select a payment method"
-        >
-          {(props) => (
-            <Radiogroup legend="Select your payment method" name="payment" {...props}>
-              {radioOptions.map((option) => {
-                return <Radio value={option.value} label={option.label} />;
-              })}
-            </Radiogroup>
+      {/* TEXTAREA — Default */}
+      <div className="card">
+        <FormField label="Bio" helperText="Descrivi te stesso in poche parole">
+          {(fieldProps) => (
+            <Textarea
+              {...fieldProps}
+              rows={4}
+              placeholder="Scrivi qui..."
+              showCounter
+              maxLength={200}
+            />
           )}
         </FormField>
-      </div> */}
+      </div>
 
+      {/* TEXTAREA — Error */}
       <div className="card">
-        <FormField
-          label="Payment method"
-          helperText="Choose one option"
-          error="Please select a payment method"
-        >
-          {(props) => (
-            <CheckboxGroup
-              legend="Preferences"
-              name="prefs"
-              value={values}
-              onChange={setValues}
-              showSelectAll
-            >
-              {options.map((option, index) => {
-                console.log(index, options.length, option.value);
-
-                return (
-                  <Checkbox key={index} label={option.label} value={option.value} {...props} />
-                );
-              })}
-            </CheckboxGroup>
+        <FormField label="Bio" error="Il campo è obbligatorio" required>
+          {(fieldProps) => (
+            <Textarea
+              {...fieldProps}
+              rows={4}
+              placeholder="Scrivi qui..."
+              showCounter
+              maxLength={200}
+            />
           )}
+        </FormField>
+      </div>
+
+      {/* TEXTAREA — Disabled */}
+      <div className="card">
+        <FormField label="Bio" helperText="Non modificabile">
+          {(fieldProps) => (
+            <Textarea {...fieldProps} rows={4} disabled defaultValue="Testo non modificabile" />
+          )}
+        </FormField>
+      </div>
+
+      {/* TEXTAREA — Controlled */}
+      <div className="card">
+        <FormField label="Messaggio" helperText="Modalità controllata">
+          {(fieldProps) => {
+            const [value, setValue] = React.useState('');
+            return (
+              <Textarea
+                {...fieldProps}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                rows={4}
+                placeholder="Scrivi qui..."
+                showCounter
+                maxLength={200}
+              />
+            );
+          }}
         </FormField>
       </div>
     </>

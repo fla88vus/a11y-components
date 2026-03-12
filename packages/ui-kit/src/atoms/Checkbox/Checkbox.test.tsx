@@ -1,458 +1,200 @@
-// // src/atoms/Checkbox/Checkbox.test.tsx
-// import { render, screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
-// import { describe, it, expect, vi } from 'vitest';
-// import { Checkbox } from './Checkbox';
-// import React from 'react';
-
-// describe('Checkbox', () => {
-//   // ===================================
-//   // BASIC RENDERING
-//   // ===================================
-
-//   it('renders with label', () => {
-//     render(<Checkbox label="Accept terms" />);
-//     expect(screen.getByLabelText('Accept terms')).toBeInTheDocument();
-//   });
-
-//   it('associates label with input correctly', () => {
-//     render(<Checkbox label="Subscribe to newsletter" />);
-//     const checkbox = screen.getByLabelText('Subscribe to newsletter');
-//     const label = screen.getByText('Subscribe to newsletter');
-
-//     expect(checkbox).toHaveAttribute('id');
-//     expect(label).toHaveAttribute('for', checkbox.id);
-//   });
-
-//   it('renders as checkbox input type', () => {
-//     render(<Checkbox label="Accept terms" />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     expect(checkbox).toHaveAttribute('type', 'checkbox');
-//   });
-
-//   // ===================================
-//   // CHECKED STATE
-//   // ===================================
-
-//   it('is unchecked by default', () => {
-//     render(<Checkbox label="Accept terms" />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     expect(checkbox).not.toBeChecked();
-//   });
-
-//   it('can be checked with defaultChecked prop (uncontrolled)', () => {
-//     render(<Checkbox label="Accept terms" defaultChecked />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     expect(checkbox).toBeChecked();
-//   });
-
-//   it('respects checked prop (controlled)', () => {
-//     const { rerender } = render(
-//       <Checkbox label="Accept terms" checked={false} onChange={() => {}} />
-//     );
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     expect(checkbox).not.toBeChecked();
-
-//     rerender(<Checkbox label="Accept terms" checked={true} onChange={() => {}} />);
-//     expect(checkbox).toBeChecked();
-//   });
-
-//   // ===================================
-//   // USER INTERACTION
-//   // ===================================
-
-//   it('toggles when clicked', async () => {
-//     render(<Checkbox label="Accept terms" />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     expect(checkbox).not.toBeChecked();
-
-//     await userEvent.click(checkbox);
-//     expect(checkbox).toBeChecked();
-
-//     await userEvent.click(checkbox);
-//     expect(checkbox).not.toBeChecked();
-//   });
-
-//   it('toggles when label is clicked', async () => {
-//     render(<Checkbox label="Accept terms" />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-//     const label = screen.getByText('Accept terms');
-
-//     expect(checkbox).not.toBeChecked();
-
-//     await userEvent.click(label);
-//     expect(checkbox).toBeChecked();
-//   });
-
-//   it('toggles with Space key', async () => {
-//     render(<Checkbox label="Accept terms" />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     checkbox.focus();
-//     expect(checkbox).not.toBeChecked();
-
-//     await userEvent.keyboard(' ');
-//     expect(checkbox).toBeChecked();
-
-//     await userEvent.keyboard(' ');
-//     expect(checkbox).not.toBeChecked();
-//   });
-
-//   it('calls onChange handler when toggled', async () => {
-//     const handleChange = vi.fn();
-//     render(<Checkbox label="Accept terms" onChange={handleChange} />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     await userEvent.click(checkbox);
-
-//     expect(handleChange).toHaveBeenCalledTimes(1);
-//     expect(handleChange).toHaveBeenCalledWith(
-//       expect.objectContaining({
-//         target: expect.objectContaining({
-//           checked: true,
-//         }),
-//       })
-//     );
-//   });
-
-//   // ===================================
-//   // ERROR STATE
-//   // ===================================
-
-//   it('shows error message when error prop is provided', () => {
-//     render(<Checkbox label="Accept terms" error="You must accept the terms" />);
-
-//     expect(screen.getByText('You must accept the terms')).toBeInTheDocument();
-//     expect(screen.getByRole('alert')).toHaveTextContent('You must accept the terms');
-//   });
-
-//   it('marks checkbox as invalid when error is present', () => {
-//     render(<Checkbox label="Accept terms" error="Required field" />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     expect(checkbox).toHaveAttribute('aria-invalid', 'true');
-//   });
-
-//   // ===================================
-//   // HELPER TEXT
-//   // ===================================
-
-//   it('shows helper text', () => {
-//     render(<Checkbox label="Subscribe" helperText="We'll send you weekly updates" />);
-//     expect(screen.getByText("We'll send you weekly updates")).toBeInTheDocument();
-//   });
-
-//   it('hides helper text when error is present', () => {
-//     render(
-//       <Checkbox label="Accept terms" helperText="Please read our terms" error="You must accept" />
-//     );
-
-//     expect(screen.queryByText('Please read our terms')).not.toBeInTheDocument();
-//     expect(screen.getByText('You must accept')).toBeInTheDocument();
-//   });
-
-//   it('links helper text via aria-describedby', () => {
-//     render(<Checkbox label="Subscribe" helperText="Weekly updates" />);
-//     const checkbox = screen.getByLabelText('Subscribe');
-//     const helperText = screen.getByText('Weekly updates');
-
-//     expect(checkbox).toHaveAttribute('aria-describedby');
-//     expect(checkbox.getAttribute('aria-describedby')).toContain(helperText.id);
-//   });
-
-//   // ===================================
-//   // REQUIRED STATE
-//   // ===================================
-
-//   it('shows required indicator when required', () => {
-//     render(<Checkbox label="Accept terms" required />);
-//     const requiredIndicator = screen.getByLabelText('required');
-//     expect(requiredIndicator).toBeInTheDocument();
-//     expect(requiredIndicator).toHaveTextContent('*');
-//   });
-
-//   it('has required attribute when required', () => {
-//     render(<Checkbox label="Accept terms" required />);
-//     const checkbox = screen.getByRole('checkbox', { name: /Accept terms/i });
-
-//     expect(checkbox).toBeRequired();
-//     expect(checkbox).toHaveAttribute('aria-required', 'true');
-//     expect(checkbox).toHaveAttribute('required');
-//   });
-
-//   // ===================================
-//   // DISABLED STATE
-//   // ===================================
-
-//   it('applies disabled state correctly', () => {
-//     render(<Checkbox label="Accept terms" disabled />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     expect(checkbox).toBeDisabled();
-//   });
-
-//   it('cannot be toggled when disabled', async () => {
-//     render(<Checkbox label="Accept terms" disabled />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     expect(checkbox).not.toBeChecked();
-
-//     await userEvent.click(checkbox);
-//     expect(checkbox).not.toBeChecked();
-//   });
-
-//   // ===================================
-//   // SIZE VARIANTS
-//   // ===================================
-
-//   it('applies correct size classes', () => {
-//     const { rerender } = render(<Checkbox label="Accept terms" size="small" />);
-//     let checkbox = screen.getByRole('checkbox', { name: /Accept terms/i });
-//     expect(checkbox).toHaveClass('small');
-
-//     rerender(<Checkbox label="Accept terms" size="medium" />);
-//     checkbox = screen.getByRole('checkbox', { name: /Accept terms/i });
-//     expect(checkbox).toHaveClass('medium');
-
-//     rerender(<Checkbox label="Accept terms" size="large" />);
-//     checkbox = screen.getByRole('checkbox', { name: /Accept terms/i });
-//     expect(checkbox).toHaveClass('large');
-//   });
-
-//   // ===================================
-//   // REF FORWARDING
-//   // ===================================
-
-//   it('forwards ref correctly', () => {
-//     const ref = React.createRef<HTMLInputElement>();
-//     render(<Checkbox label="Accept terms" ref={ref} />);
-
-//     expect(ref.current).toBeInstanceOf(HTMLInputElement);
-//     expect(ref.current?.type).toBe('checkbox');
-//   });
-
-//   // ===================================
-//   // CUSTOM ID
-//   // ===================================
-
-//   it('uses custom id when provided', () => {
-//     render(<Checkbox label="Accept terms" id="custom-checkbox-id" />);
-//     const checkbox = screen.getByLabelText('Accept terms');
-
-//     expect(checkbox).toHaveAttribute('id', 'custom-checkbox-id');
-//   });
-
-//   // ===================================
-//   // ACCESSIBILITY - WCAG 2.1 AA/AAA
-//   // ===================================
-
-//   describe('Accessibility - WCAG 2.1 AA/AAA', () => {
-//     it('has proper label association (WCAG 1.3.1, 3.3.2)', () => {
-//       render(<Checkbox label="Accept terms and conditions" />);
-
-//       const checkbox = screen.getByLabelText('Accept terms and conditions');
-//       const label = screen.getByText('Accept terms and conditions');
-
-//       expect(checkbox).toHaveAttribute('id');
-//       expect(label).toHaveAttribute('for', checkbox.id);
-//     });
-
-//     it('uses semantic checkbox input (WCAG 1.3.1)', () => {
-//       render(<Checkbox label="Accept terms" />);
-//       const checkbox = screen.getByLabelText('Accept terms');
-
-//       expect(checkbox.tagName).toBe('INPUT');
-//       expect(checkbox).toHaveAttribute('type', 'checkbox');
-//     });
-
-//     it('error state not conveyed by color alone (WCAG 1.4.1)', () => {
-//       render(<Checkbox label="Accept terms" error="Required field" />);
-//       const checkbox = screen.getByLabelText('Accept terms');
-
-//       // Uses aria-invalid and role="alert", not just color
-//       expect(checkbox).toHaveAttribute('aria-invalid', 'true');
-//       expect(screen.getByRole('alert')).toBeInTheDocument();
-//     });
-
-//     it('is keyboard accessible (WCAG 2.1.1)', () => {
-//       render(<Checkbox label="Accept terms" />);
-//       const checkbox = screen.getByLabelText('Accept terms');
-
-//       expect(checkbox.tagName).toBe('INPUT');
-//       expect(checkbox).not.toHaveAttribute('tabindex', '-1');
-//     });
-
-//     it('can receive focus (WCAG 2.4.7)', () => {
-//       render(<Checkbox label="Accept terms" />);
-//       const checkbox = screen.getByLabelText('Accept terms');
-
-//       checkbox.focus();
-//       expect(checkbox).toHaveFocus();
-//     });
-
-//     it('has aria-describedby for error (WCAG 3.3.1)', () => {
-//       render(<Checkbox label="Accept terms" error="This field is required" />);
-//       const checkbox = screen.getByLabelText('Accept terms');
-//       const errorMessage = screen.getByText('This field is required');
-
-//       expect(checkbox).toHaveAttribute('aria-describedby');
-//       expect(checkbox.getAttribute('aria-describedby')).toContain(errorMessage.id);
-//     });
-
-//     it('has aria-describedby for helper text (WCAG 3.3.2)', () => {
-//       render(<Checkbox label="Subscribe" helperText="Get weekly updates" />);
-//       const checkbox = screen.getByLabelText('Subscribe');
-//       const helperText = screen.getByText('Get weekly updates');
-
-//       expect(checkbox).toHaveAttribute('aria-describedby');
-//       expect(checkbox.getAttribute('aria-describedby')).toContain(helperText.id);
-//     });
-
-//     it('combines error and helper in aria-describedby', () => {
-//       render(<Checkbox label="Accept" helperText="Read carefully" error="Required" />);
-
-//       // Should only show error (helper is hidden when error present)
-//       expect(screen.queryByText('Read carefully')).not.toBeInTheDocument();
-//       expect(screen.getByText('Required')).toBeInTheDocument();
-//     });
-
-//     it('has accessible name from label (WCAG 4.1.2)', () => {
-//       render(<Checkbox label="I agree to the privacy policy" />);
-//       const checkbox = screen.getByRole('checkbox', {
-//         name: 'I agree to the privacy policy',
-//       });
-
-//       expect(checkbox).toBeInTheDocument();
-//     });
-
-//     it('announces required state to screen readers (WCAG 3.3.2)', () => {
-//       render(<Checkbox label="Accept terms" required />);
-//       const checkbox = screen.getByRole('checkbox', { name: /Accept terms/i });
-
-//       expect(checkbox).toHaveAttribute('aria-required', 'true');
-//       expect(checkbox).toHaveAttribute('required');
-//     });
-//   });
-
-//   // ===================================
-//   // INDETERMINATE STATE
-//   // ===================================
-
-//   describe('Indeterminate State', () => {
-//     it('supports indeterminate state', () => {
-//       render(<Checkbox label="Select all" indeterminate={true} />);
-//       const checkbox = screen.getByLabelText('Select all') as HTMLInputElement;
-
-//       expect(checkbox.indeterminate).toBe(true);
-//     });
-
-//     it('is not indeterminate by default', () => {
-//       render(<Checkbox label="Select all" />);
-//       const checkbox = screen.getByLabelText('Select all') as HTMLInputElement;
-
-//       expect(checkbox.indeterminate).toBe(false);
-//     });
-
-//     it("sets aria-checked='mixed' when indeterminate", () => {
-//       render(<Checkbox label="Select all" indeterminate={true} />);
-//       const checkbox = screen.getByLabelText('Select all');
-
-//       expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
-//     });
-
-//     it("does not set aria-checked='mixed' when not indeterminate", () => {
-//       render(<Checkbox label="Select all" indeterminate={false} />);
-//       const checkbox = screen.getByLabelText('Select all');
-
-//       expect(checkbox).not.toHaveAttribute('aria-checked', 'mixed');
-//     });
-
-//     it('updates indeterminate state when prop changes', () => {
-//       const { rerender } = render(<Checkbox label="Select all" indeterminate={false} />);
-//       const checkbox = screen.getByLabelText('Select all') as HTMLInputElement;
-
-//       expect(checkbox.indeterminate).toBe(false);
-
-//       rerender(<Checkbox label="Select all" indeterminate={true} />);
-//       expect(checkbox.indeterminate).toBe(true);
-
-//       rerender(<Checkbox label="Select all" indeterminate={false} />);
-//       expect(checkbox.indeterminate).toBe(false);
-//     });
-
-//     it('can be both checked and indeterminate', () => {
-//       render(
-//         <Checkbox label="Select all" checked={true} indeterminate={true} onChange={() => {}} />
-//       );
-//       const checkbox = screen.getByLabelText('Select all') as HTMLInputElement;
-
-//       expect(checkbox).toBeChecked();
-//       expect(checkbox.indeterminate).toBe(true);
-//     });
-
-//     it('clicking indeterminate checkbox calls onChange', async () => {
-//       const handleChange = vi.fn();
-//       render(<Checkbox label="Select all" indeterminate={true} onChange={handleChange} />);
-//       const checkbox = screen.getByLabelText('Select all');
-
-//       await userEvent.click(checkbox);
-
-//       expect(handleChange).toHaveBeenCalledTimes(1);
-//     });
-
-//     it('applies indeterminate CSS class', () => {
-//       render(<Checkbox label="Select all" indeterminate={true} />);
-//       const checkbox = screen.getByLabelText('Select all');
-
-//       expect(checkbox).toHaveClass('indeterminate');
-//     });
-
-//     it('indeterminate state works with all sizes', () => {
-//       const { rerender } = render(
-//         <Checkbox label="Select all" indeterminate={true} size="small" />
-//       );
-//       let checkbox = screen.getByLabelText('Select all') as HTMLInputElement;
-//       expect(checkbox.indeterminate).toBe(true);
-//       expect(checkbox).toHaveClass('small');
-
-//       rerender(<Checkbox label="Select all" indeterminate={true} size="medium" />);
-//       checkbox = screen.getByLabelText('Select all') as HTMLInputElement;
-//       expect(checkbox.indeterminate).toBe(true);
-//       expect(checkbox).toHaveClass('medium');
-
-//       rerender(<Checkbox label="Select all" indeterminate={true} size="large" />);
-//       checkbox = screen.getByLabelText('Select all') as HTMLInputElement;
-//       expect(checkbox.indeterminate).toBe(true);
-//       expect(checkbox).toHaveClass('large');
-//     });
-
-//     it('indeterminate state works with disabled', () => {
-//       render(<Checkbox label="Select all" indeterminate={true} disabled={true} />);
-//       const checkbox = screen.getByLabelText('Select all') as HTMLInputElement;
-
-//       expect(checkbox.indeterminate).toBe(true);
-//       expect(checkbox).toBeDisabled();
-//     });
-
-//     it('maintains indeterminate state with ref', () => {
-//       const ref = React.createRef<HTMLInputElement>();
-//       render(<Checkbox label="Select all" indeterminate={true} ref={ref} />);
-
-//       expect(ref.current?.indeterminate).toBe(true);
-//     });
-
-//     // WCAG 4.1.2 - Name, Role, Value
-//     it('announces indeterminate state to screen readers (WCAG 4.1.2)', () => {
-//       render(<Checkbox label="Select all items" indeterminate={true} />);
-//       const checkbox = screen.getByLabelText('Select all items');
-
-//       // aria-checked="mixed" tells screen readers about the indeterminate state
-//       expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
-//     });
-//   });
-// });
+import { describe, it, expect, vi } from 'vitest';
+import { screen, userEvent, renderWithProviders } from '../../test/test-utils';
+import {
+  checkableRenderingTests,
+  checkableStateTests,
+  checkableInteractionTests,
+} from '../../test/test-categories/checkable.patterns';
+import { Checkbox } from './Checkbox';
+import { CheckboxGroupContext } from '../../primitives/CheckboxGroupContext';
+import React from 'react';
+
+/**
+ * Checkbox Component Tests
+ * Pattern: Checkable Control (Atom)
+ */
+describe('Checkbox - Component Tests', () => {
+  describe('Rendering', () => {
+    it('renders with correct role', () => {
+      renderWithProviders(<Checkbox label="Accept terms" value="accept" />);
+      checkableRenderingTests['renders with correct role']('checkbox');
+    });
+
+    it('has proper label association', () => {
+      renderWithProviders(<Checkbox label="Subscribe to newsletter" value="subscribe" />);
+      checkableRenderingTests['has proper label association'](
+        'Subscribe to newsletter',
+        'checkbox'
+      );
+    });
+  });
+
+  describe('States', () => {
+    it('handles checked state', () => {
+      renderWithProviders(<Checkbox label="Checked" value="test" checked onChange={() => {}} />);
+      checkableStateTests['handles checked state']('checkbox');
+    });
+
+    it('handles unchecked state', () => {
+      renderWithProviders(<Checkbox label="Unchecked" value="test" />);
+      checkableStateTests['handles unchecked state']('checkbox');
+    });
+
+    it('handles disabled state', () => {
+      renderWithProviders(<Checkbox label="Disabled" value="test" disabled />);
+      checkableStateTests['handles disabled state with native attribute']('checkbox');
+    });
+
+    it('handles indeterminate state', () => {
+      renderWithProviders(<Checkbox label="Partial" value="test" indeterminate />);
+      const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+      expect(checkbox.indeterminate).toBe(true);
+    });
+  });
+
+  describe('Interactions', () => {
+    it('toggles on click', async () => {
+      const handleChange = vi.fn();
+      renderWithProviders(<Checkbox label="Toggle" value="test" onChange={handleChange} />);
+      await checkableInteractionTests['toggles on click'](handleChange, 'checkbox');
+    });
+
+    it('toggles on Space key', async () => {
+      const handleChange = vi.fn();
+      renderWithProviders(<Checkbox label="Press space" value="test" onChange={handleChange} />);
+      await checkableInteractionTests['toggles on Space key'](handleChange, 'checkbox');
+    });
+
+    it('prevents interaction when disabled', async () => {
+      const handleChange = vi.fn();
+      renderWithProviders(
+        <Checkbox label="Disabled" value="test" disabled onChange={handleChange} />
+      );
+      await checkableInteractionTests['prevents interaction when disabled'](
+        handleChange,
+        'checkbox'
+      );
+    });
+  });
+
+  describe('Checkbox Specific', () => {
+    it('works as controlled component', async () => {
+      const user = userEvent.setup();
+      const TestComponent = () => {
+        const [checked, setChecked] = React.useState(false);
+        return (
+          <Checkbox
+            label="Controlled"
+            value="test"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
+          />
+        );
+      };
+
+      renderWithProviders(<TestComponent />);
+      const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+
+      expect(checkbox.checked).toBe(false);
+      await user.click(checkbox);
+      expect(checkbox.checked).toBe(true);
+    });
+
+    it('works as uncontrolled component', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<Checkbox label="Uncontrolled" value="test" />);
+
+      const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+      await user.click(checkbox);
+      expect(checkbox.checked).toBe(true);
+    });
+
+    it('calls onChange with correct event', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+
+      renderWithProviders(<Checkbox label="Test" value="test-value" onChange={handleChange} />);
+
+      await user.click(screen.getByRole('checkbox'));
+
+      expect(handleChange).toHaveBeenCalledTimes(1);
+      // Verify the event object structure more simply
+      const callArg = handleChange.mock.calls[0][0];
+      expect(callArg.target.checked).toBe(true);
+    });
+  });
+
+  describe('Group Context Integration', () => {
+    it('integrates with CheckboxGroup context', () => {
+      const groupValue = {
+        value: ['option1'],
+        name: 'test-group',
+        disabled: false,
+        describedBy: 'group-error',
+        onItemChange: vi.fn(),
+      };
+
+      renderWithProviders(
+        <CheckboxGroupContext.Provider value={groupValue}>
+          <Checkbox label="Option 1" value="option1" />
+          <Checkbox label="Option 2" value="option2" />
+        </CheckboxGroupContext.Provider>
+      );
+
+      const checkboxes = screen.getAllByRole('checkbox');
+
+      // First checkbox should be checked (in group value)
+      expect(checkboxes[0]).toBeChecked();
+      expect(checkboxes[1]).not.toBeChecked();
+
+      // Both should have the group name
+      expect(checkboxes[0]).toHaveAttribute('name', 'test-group');
+      expect(checkboxes[1]).toHaveAttribute('name', 'test-group');
+
+      // Both should be described by group error
+      expect(checkboxes[0]).toHaveAttribute('aria-describedby', 'group-error');
+      expect(checkboxes[1]).toHaveAttribute('aria-describedby', 'group-error');
+    });
+
+    it('group disabled overrides individual disabled prop', () => {
+      const groupValue = {
+        value: [],
+        name: 'test-group',
+        disabled: true, // Group is disabled
+        describedBy: undefined,
+        onItemChange: vi.fn(),
+      };
+
+      renderWithProviders(
+        <CheckboxGroupContext.Provider value={groupValue}>
+          <Checkbox label="Should be disabled" value="test" disabled={false} />
+        </CheckboxGroupContext.Provider>
+      );
+
+      expect(screen.getByRole('checkbox')).toBeDisabled();
+    });
+
+    it('calls group onItemChange when toggled', async () => {
+      const user = userEvent.setup();
+      const onItemChange = vi.fn();
+
+      const groupValue = {
+        value: [],
+        name: 'test-group',
+        disabled: false,
+        describedBy: undefined,
+        onItemChange,
+      };
+
+      renderWithProviders(
+        <CheckboxGroupContext.Provider value={groupValue}>
+          <Checkbox label="Option 1" value="option1" />
+        </CheckboxGroupContext.Provider>
+      );
+
+      await user.click(screen.getByRole('checkbox'));
+
+      expect(onItemChange).toHaveBeenCalledWith('option1', true);
+    });
+  });
+});

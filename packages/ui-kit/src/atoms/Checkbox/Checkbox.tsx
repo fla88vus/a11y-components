@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { CheckboxGroupContext } from '../../primitives/CheckboxGroupContext';
+import styles from './Checkbox.module.css';
 
 export interface CheckboxProps {
   value: string;
@@ -24,14 +25,21 @@ export const Checkbox = ({
   const generatedId = React.useId();
   const id = providedId ?? generatedId;
 
-  const checked = group ? group.value.includes(value) : checkedProp;
-  const disabled = group?.disabled || disabledProp;
+  const checked =
+    checkedProp !== undefined ? checkedProp : group ? group.value.includes(value) : false;
+  const disabled = disabledProp ?? group?.disabled ?? false;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (group) group.onItemChange(value, e.target.checked);
     onChange?.(e);
   };
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
+  React.useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.indeterminate = indeterminate ?? false;
+    }
+  }, [indeterminate]);
   return (
     <label htmlFor={id}>
       <input
@@ -42,9 +50,10 @@ export const Checkbox = ({
         disabled={disabled}
         aria-describedby={group?.describedBy}
         onChange={handleChange}
-        ref={(el) => {
-          if (el && indeterminate) el.indeterminate = indeterminate;
-        }}
+        ref={inputRef}
+        className={[styles.checkbox, indeterminate && styles.indeterminate]
+          .filter(Boolean)
+          .join(' ')}
       />
       {label}
     </label>
